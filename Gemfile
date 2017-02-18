@@ -9,7 +9,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -35,9 +35,8 @@ gem 'bootstrap-sass'
 gem 'bootstrap-table-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-datatables-rails'
+gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'ajax-datatables-rails'
-gem 'jquery-turbolinks'
 gem 'font-awesome-sass'
 gem 'paperclip'
 gem 'devise'
@@ -47,11 +46,13 @@ gem 'public_activity'
 gem 'cancancan'
 gem 'rails-jquery-autocomplete'
 gem 'roo'
-gem 'iconv'
 gem 'roo-xls'
-gem 'spreadsheet'
 gem 'will_paginate-bootstrap'
 gem 'seed_dump'
+gem 'chartist-rails'
+gem 'ransack'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

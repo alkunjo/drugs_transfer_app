@@ -11,6 +11,16 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-1.10.2
 //= require jquery_ujs
+//= require bootstrap.min
+//= require bootstrap-checkbox-radio-switch
+//= require chartist
+//= require bootstrap-notify
+//= require light-bootstrap-dashboard
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
 //= require_tree .
+
+$('#outletTable').dataTable()

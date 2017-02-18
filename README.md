@@ -1,24 +1,16 @@
-# README
+# App Description
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+	This app is made for my final task in my last semester in college. 
+	It is actually the same app as in my previous repo which is "kp" repository.
+	What differs it with the previous one is that it provides more complex database structure.
+	Not only that, it also must contains safety stock calculation for each drug stocks in each outlets
 
-Things you may want to cover:
+# Configuration
 
-* Ruby version
+# Database creation
 
-* System dependencies
+# Database initialization
 
-* Configuration
+# Test suite
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Deployment instructions

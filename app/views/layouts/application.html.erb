@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DrugsTransferApp</title>
+    <title>Transfer Obat KF</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+  	<div class="wrapper">
+		  <div class="sidebar" data-color="blue" data-image='<%= image_path("sidebar-5.jpg") %>'>
+		    <!--
+					Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+					Tip 2: you can also add an image using data-image tag
+					-->
+		    <%= render "layouts/sidebar" %>
+		  </div>
+		  <div class="main-panel">
+		    <%= render "layouts/navbar" %>
+		    <div class="content">
+		      <%= render "layouts/content" %>
+		    </div>
+		    <footer class="footer">
+		      <%= render "layouts/footer" %>
+		    </footer>
+		  </div>
+		</div>
+    <!-- <%= yield %> -->
+    <%= render "layouts/modal" %>
   </body>
 </html>
