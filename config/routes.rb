@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 	end
 
   get 'obats/:id/del' => 'obats#del', as: :del_obat
+  get 'outlets/:id/del' => 'outlets#del', as: :del_outlet
+  get 'outlet_types/:id/del' => 'outlet_types#del', as: :del_outlet_type
 end
