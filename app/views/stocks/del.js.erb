@@ -1,0 +1,3 @@
+$('#stockModal').modal('show');
+$('#stockModal .modal-title').html("Hapus Stock");
+$('#stockModal .modal-isi').html("<%= escape_javascript( render partial: 'stocks/del' )%>");

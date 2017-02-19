@@ -8,18 +8,21 @@
 <div id="form" style="padding: 0px 50px 0px 50px">
   <%= render 'form' %>
 </div>
+<div align="center">
+  <%= will_paginate @obats, renderer: BootstrapPagination::Rails %>
+</div>
 
 <table class="table table-striped table-bordered" data-toggle="table" style="max-width: 850px;margin-left: 50px">
   <thead>
     <tr align="center">
-      <th style="text-align:center" data-sortable="true">Kode Satuan</th>
-      <th style="text-align:center" data-sortable="true">Ukuran</th>
-      <th style="text-align:center" data-sortable="true">Isi Satuan</th>
+      <th style="text-align:center" data-sortable="true">Nama Obat</th>
+      <th style="text-align:center" data-sortable="true">Outlet</th>
+      <th style="text-align:center" data-sortable="true">Kuantitas</th>
       <th colspan="2" style="text-align:center">Aksi</th>
     </tr>
   </thead>
 
-  <tbody id="tabelSatuan" class="isiSatuan">
+  <tbody id="tabelStock" class="isiStock">
     <%= render 'index' %>
   </tbody>
 </table>

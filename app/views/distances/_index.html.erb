@@ -1,0 +1,10 @@
+<% @distances.each do |distance| %>
+  <tr>
+  	<td><%= origin(distance.origin_id) %></td>
+  	<td><%= destination(distance.destination_id) %></td>
+  	<td><%= distance.distance %> km</td>
+  	<td>
+    	<%= link_to edit_distance_path([distance.origin_id,distance.destination_id]), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
+    	<%= link_to del_distance_path([distance.origin_id,distance.destination_id]), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
+  </tr>
+<% end %>

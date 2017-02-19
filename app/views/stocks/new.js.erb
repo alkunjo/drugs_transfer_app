@@ -1,0 +1,3 @@
+$(".isiStock").html("<%= escape_javascript(render 'index') %>")
+$("#stockModal").modal("hide")
+$('#form').html("<%= escape_javascript(render action: :new, partial: 'form') %>")

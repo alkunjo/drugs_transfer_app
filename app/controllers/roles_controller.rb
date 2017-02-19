@@ -1,74 +1,64 @@
 class RolesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
-
-  # GET /roles
-  # GET /roles.json
+  before_action :set_role, only: [ :edit, :update, :destroy, :del]
+  before_action :set_roles, only: [:index, :new, :create, :update, :edit, :destroy, :del]
+  
   def index
-    @roles = Role.all
-  end
-
-  # GET /roles/1
-  # GET /roles/1.json
-  def show
-  end
-
-  # GET /roles/new
-  def new
     @role = Role.new
   end
 
-  # GET /roles/1/edit
+  def new
+    @role = Role.new
+    respond_to do |format|
+      format.js {render 'new'}
+    end
+  end
+
   def edit
   end
 
-  # POST /roles
-  # POST /roles.json
+  def del    
+    respond_to do |format|
+      format.js {render 'del'}
+    end
+  end
+
   def create
     @role = Role.new(role_params)
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to @role, notice: 'Role was successfully created.' }
-        format.json { render :show, status: :created, location: @role }
-      else
-        format.html { render :new }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+        return new
       end
     end
   end
 
-  # PATCH/PUT /roles/1
-  # PATCH/PUT /roles/1.json
   def update
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to @role, notice: 'Role was successfully updated.' }
-        format.json { render :show, status: :ok, location: @role }
+        return new
       else
-        format.html { render :edit }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+        format.js {render 'edit'}
       end
     end
   end
 
-  # DELETE /roles/1
-  # DELETE /roles/1.json
   def destroy
     @role.destroy
     respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
-      format.json { head :no_content }
+      return new
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_role
       @role = Role.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def set_roles
+      @roles = Role.all
+    end
+
     def role_params
       params.require(:role).permit(:role_name, :role_desc)
     end

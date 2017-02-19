@@ -13,11 +13,11 @@
 ActiveRecord::Schema.define(version: 20170212102037) do
 
   create_table "distances", primary_key: ["origin_id", "destination_id"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "origin_id",      null: false
-    t.integer  "destination_id", null: false
-    t.integer  "distance"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "origin_id",                 null: false
+    t.integer  "destination_id",            null: false
+    t.float    "distance",       limit: 53
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["destination_id"], name: "fk_distances_outlets2_idx", using: :btree
     t.index ["origin_id"], name: "fk_distances_outlets1_idx", using: :btree
   end
@@ -58,6 +58,22 @@ ActiveRecord::Schema.define(version: 20170212102037) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["otype_id"], name: "fk_outlets_outlet_types1_idx", using: :btree
+  end
+
+  create_table "req_days", primary_key: "req_day_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requests", primary_key: ["stock_id", "req_day_id"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "stock_id",    null: false
+    t.integer  "req_day_id",  null: false
+    t.integer  "request_qty"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["req_day_id"], name: "fk_requests_req_days1_idx", using: :btree
+    t.index ["stock_id"], name: "fk_requests_stocks1_idx", using: :btree
   end
 
   create_table "roles", primary_key: "role_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -146,6 +162,8 @@ ActiveRecord::Schema.define(version: 20170212102037) do
   add_foreign_key "dtrans", "stocks", primary_key: "stock_id", name: "fk_dtrans_stocks1"
   add_foreign_key "dtrans", "transaksis", primary_key: "transaksi_id", name: "fk_dtrans_transaksis1"
   add_foreign_key "outlets", "outlet_types", column: "otype_id", primary_key: "otype_id", name: "fk_outlets_outlet_types1"
+  add_foreign_key "requests", "req_days", primary_key: "req_day_id", name: "fk_requests_req_days1"
+  add_foreign_key "requests", "stocks", primary_key: "stock_id", name: "fk_requests_stocks1"
   add_foreign_key "safety_stocks", "ss_periods", primary_key: "ss_period_id", name: "fk_safety_stocks_ss_periods1"
   add_foreign_key "safety_stocks", "stocks", primary_key: "stock_id", name: "fk_safety_stocks_stocks1"
   add_foreign_key "stocks", "obats", primary_key: "obat_id", name: "fk_stocks_obats1"

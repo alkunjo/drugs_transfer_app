@@ -1,0 +1,3 @@
+$(".isiRole").html("<%= escape_javascript(render 'index') %>")
+$("#roleModal").modal("hide")
+$('#form').html("<%= escape_javascript(render action: :new, partial: 'form') %>")

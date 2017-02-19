@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-1.10.2
 //= require jquery_ujs
+//= require autocomplete-rails
 //= require bootstrap.min
 //= require bootstrap-checkbox-radio-switch
 //= require chartist

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stok_qty: 1
+  current_ss: 1
+
+two:
+  stok_qty: 1
+  current_ss: 1
