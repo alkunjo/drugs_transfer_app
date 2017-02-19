@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  satuan_code: MyString
+  satuan_ukuran: MyString
+  satuan_isi: 1
+
+two:
+  satuan_code: MyString
+  satuan_ukuran: MyString
+  satuan_isi: 1

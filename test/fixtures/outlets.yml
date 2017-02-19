@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  outlet_name: MyString
+  outlet_address: MyString
+  outlet_phone: MyString
+  outlet_city: MyString
+  outlet_email: MyString
+  outlet_fax: MyString
+  outlet_type: one
+
+two:
+  outlet_name: MyString
+  outlet_address: MyString
+  outlet_phone: MyString
+  outlet_city: MyString
+  outlet_email: MyString
+  outlet_fax: MyString
+  outlet_type: two

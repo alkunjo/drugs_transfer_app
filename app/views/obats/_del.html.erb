@@ -1,0 +1,5 @@
+<div class="container" align="center" style="max-width:400px;padding-top:10px">
+	Apakah Anda yakin menghapus obat <%= @obat.obat_name %>?<br><br>
+	<%= link_to "Hapus", obat_path(@obat), method: :delete, remote: true , class: "btn btn-danger btn-sm" %>&nbsp;&nbsp;&nbsp;
+	<%= link_to "Batal", "#", class: "btn btn-sm btn-default", data: {dismiss: "modal"} %><br><br>
+</div>

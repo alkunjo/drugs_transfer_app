@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pengadaan Obat KF Surabaya</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body style="background-color: #124577">
+	<div style="padding-top: 100px">
+	  <div class="container-fluid">
+	    <div class="row">
+	      <div class="col-lg-12">
+					<div id="devContent" align="center">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<%= yield %>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</body>
+</html>

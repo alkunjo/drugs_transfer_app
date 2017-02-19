@@ -1,0 +1,3 @@
+$('#obatModal').modal('show');
+$('#obatModal .modal-title').html("Hapus Obat");
+$('#obatModal .modal-isi').html("<%= escape_javascript( render partial: 'obats/del' )%>");

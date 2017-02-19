@@ -1,0 +1,3 @@
+$('#userModal').modal('show');
+$('#userModal .modal-title').html("Hapus Pengguna");
+$('#userModal .modal-isi').html("<%= escape_javascript( render partial: 'users/del' )%>");

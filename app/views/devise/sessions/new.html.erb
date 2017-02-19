@@ -1,0 +1,34 @@
+<div id="loginBox">
+  <br>
+  <%= image_tag("logo.png", size: "150x60") %><br>
+  <h4 id="login">Sign In</h4>
+<% if notice %>
+  <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= notice %>
+  </div>
+<% elsif alert %>
+  <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= alert %>
+  </div>
+<% end %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <%= f.text_field :user_name, autofocus: true, placeholder: "username", class: "form-control", style: "max-width:250px" %><br>
+      <%= f.password_field :password, autocomplete: "off", placeholder: "password", class: "form-control", style: "max-width:250px" %>
+    </div>
+    <div class="form-group" style="padding-bottom: 10px">
+      <% if devise_mapping.rememberable? -%>
+        <div class="col-md-7" id="rememberable">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+      
+      <div class="col-md-2">
+        <%= f.submit "Login", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

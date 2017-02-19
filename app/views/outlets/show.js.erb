@@ -1,0 +1,3 @@
+$('#outletModal').modal('show');
+$('#outletModal .modal-title').html('Detail Outlet <%= escape_javascript(@outlet.outlet_name) %>');
+$('#outletModal .modal-isi').html("<%= escape_javascript(render partial: 'outlets/show') %>");

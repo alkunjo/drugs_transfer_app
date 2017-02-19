@@ -1,0 +1,37 @@
+<%= form_for @obat, remote: true, html: {style: "display:inline;"} do |f| %>
+    <% if @obat.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@obat.errors.count, "error") %> prohibited this tipe obat from being saved:</h2>
+
+        <ul>
+        <% @obat.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-2" style="padding-top: 8px">
+          <%= f.label :nama_obat, class: "control-label" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.text_field :obat_name, class: "form-control" %>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1" style="padding-top: 8px">
+          <%= f.label :hpp, class: "control-label" %>
+        </div>
+        <div class="col-md-2">
+          <%= f.text_field :obat_hpp, class: "form-control" %>
+        </div>
+        <div class="col-md-1" style="padding-top: 5px">
+          <%= f.submit (f.object.new_record? ? "Tambah" : "Ubah"), class: "btn btn-sm btn-primary" %>
+        </div>
+        <div class="col-md-1" style="padding-top: 5px">
+          <%= link_to 'Batal', new_obat_path, class: "btn btn-sm btn-default", remote: true %>
+        </div>
+      </div>
+    </div>
+<% end %>

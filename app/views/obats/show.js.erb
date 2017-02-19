@@ -1,0 +1,3 @@
+$('#obatModal').modal('show');
+$('#obatModal .modal-title').html('Detail Obat <%= escape_javascript(@obat.obat_name) %>');
+$('#obatModal .modal-isi').html("<%= escape_javascript(render partial: 'obats/show') %>");

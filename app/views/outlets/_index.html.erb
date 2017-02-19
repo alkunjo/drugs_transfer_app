@@ -1,0 +1,11 @@
+<% @outlets.each do |outlet| %>
+  <tr>
+  	<td><%= outlet.outlet_name %></td>
+  	<td><%= outlet.outlet_address %></td>
+  	<td><%= outlet.outlet_phone %></td>
+  	<td>
+    	<%= link_to outlet_path(outlet), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %> <span class="fa fa-eye"></span> Lihat<% end %>
+    	<%= link_to edit_outlet_path(outlet), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
+    	<%= link_to del_outlet_path(outlet), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
+  </tr>
+<% end %>

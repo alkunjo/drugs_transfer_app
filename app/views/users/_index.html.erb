@@ -1,0 +1,11 @@
+<% @users.each do |user| %>
+  <tr>
+  	<td><%= user.user_name %></td>
+  	<td><%= user.outlet.outlet_name %></td>
+  	<td><%= user.role.role_name %></td>
+  	<td>
+  		<%= link_to user_path(user), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %> <span class="fa fa-eye"></span> Lihat<% end %>
+    	<%= link_to edit_user_path(user), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
+    	<%= link_to del_user_path(user), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
+  </tr>
+<% end %>

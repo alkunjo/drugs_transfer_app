@@ -1,0 +1,55 @@
+<div class="sidebar-wrapper" style="overflow-y: scroll">
+  <div class="logo">
+    <a href="#" class="simple-text">Kimia Farma</a>
+  </div>
+  <ul class="nav">
+    <li class="<%= active?('/') %>">
+      <a href="/">
+        <i class="fa fa-pie-chart fa-lg"></i>
+        <p>Dashboard</p>
+      </a>
+    </li>
+    <li class="<%= active?('/obats') %>">
+      <a href="/obats">
+        <i class="fa fa-medkit fa-lg"></i>
+        <p>Master Obat</p>
+      </a>
+    </li>
+    <li class="<%= active?('/outlets')%>">
+      <a href="/outlets">
+        <i class="fa fa-archive fa-lg"></i>
+        <p>Master Outlet</p>
+      </a>
+    </li>
+    <li class="<%= active?('/outlet_types')%>">
+      <a href="/outlet_types">
+        <i class="fa fa-archive fa-lg"></i>
+        <p>Master Tipe Outlet</p>
+      </a>
+    </li>
+    <li class="<%= active?('/admin/users') %>">
+      <a href="/admin/users">
+        <i class="fa fa-users fa-lg"></i>
+        <p>Master Pengguna</p>
+      </a>
+    </li>
+    <li class="<%= active?('/safety_stocks') %>">
+      <a href="/safety_stocks">
+        <i class="fa fa-cubes fa-lg"></i>
+        <p>Safety Stock</p>
+      </a>
+    </li>
+    <li class="<%= active?('/transfer') %>">
+      <a href="/transfer">
+        <i class="fa fa-exchange fa-lg"></i>
+        <p>Transfer Obat</p>
+      </a>
+    </li>
+    <li class="<%= active?('/reports') %>">
+      <a href="/reports">
+        <i class="fa fa-file-text fa-lg"></i>
+        <p>Laporan Transaksi</p>
+      </a>
+    </li>
+  </ul>
+</div>

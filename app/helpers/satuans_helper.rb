@@ -1,0 +1,2 @@
+module SatuansHelper
+end

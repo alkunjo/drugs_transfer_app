@@ -1,0 +1,10 @@
+<% @obats.each do |obat| %>
+  <tr>
+  	<td><%= obat.obat_name %></td>
+  	<td><%= to_rupiah(obat.obat_hpp) %></td>
+  	<td>
+    	<%= link_to obat_path(obat), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %> <span class="fa fa-eye"></span> Lihat<% end %>
+    	<%= link_to edit_obat_path(obat), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
+    	<%= link_to del_obat_path(obat), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
+  </tr>
+<% end %>

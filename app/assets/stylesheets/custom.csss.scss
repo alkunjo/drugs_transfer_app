@@ -1,0 +1,34 @@
+@font-face{
+	font-family: 'LobsterTwo';
+  font-weight: normal;
+  font-style: normal;
+  src: font-url('LobsterTwo-Regular.ttf');
+  src: font-url('LobsterTwo-Regular.ttf') format('truetype'),
+       font-url('LobsterTwo-Regular.otf') format('opentype');
+}
+
+@font-face{
+	font-family: 'Pacifico-Regular';
+  font-weight: normal;
+  font-style: normal;
+  src: font-url('Pacifico-Regular.ttf');
+  src: font-url('Pacifico-Regular.ttf') format('truetype');
+}
+
+#login{
+	font-family: 'Pacifico-Regular';
+}
+
+#loginBox {
+	background-color: #eceef1; 
+	max-width: 350px; 
+	padding: 10px 0px 40px 0px; 
+	color: #588BF5;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+#rememberable {
+	font-family: 'Pacifico-Regular';
+	font-style: normal;
+	padding: 8px 0px 0px 30px;
+}

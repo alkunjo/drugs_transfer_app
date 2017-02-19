@@ -1,0 +1,3 @@
+$('#userModal').modal('show');
+$('#userModal .modal-title').html('Detail Pengguna <%= escape_javascript(@user.user_name) %>');
+$('#userModal .modal-isi').html("<%= escape_javascript(render partial: 'users/show') %>");
