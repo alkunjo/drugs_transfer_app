@@ -8,21 +8,16 @@
 <div id="form" style="padding: 0px 50px 0px 50px">
   <%= render 'form' %>
 </div>
-<div align="center">
-  <%= will_paginate @stocks, renderer: BootstrapPagination::Rails %>
-</div>
 
 <table class="table table-striped table-bordered" data-toggle="table" style="max-width: 850px;margin-left: 50px">
   <thead>
     <tr align="center">
-      <th style="text-align:center" data-sortable="true">Nama Obat</th>
-      <th style="text-align:center" data-sortable="true">Outlet</th>
-      <th style="text-align:center" data-sortable="true">Kuantitas</th>
+      <th style="text-align:center" data-sortable="true">Periode</th>
       <th colspan="2" style="text-align:center">Aksi</th>
     </tr>
   </thead>
 
-  <tbody id="tabelStock" class="isiStock">
+  <tbody id="tabelss_period" class="isiss_period">
     <%= render 'index' %>
   </tbody>
 </table>

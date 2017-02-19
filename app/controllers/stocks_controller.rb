@@ -1,11 +1,11 @@
 class StocksController < ApplicationController
   before_filter :authenticate_user!
+  autocomplete :outlet, :outlet_name, full: true
+  autocomplete :obat, :obat_name, full: true
   before_action :set_stock, only: [:show, :edit, :update, :destroy, :del]
   before_action :set_stocks, only: [:index, :new, :create, :update, :edit, :destroy, :del]
   before_action :set_obats, only: [:new, :create, :edit, :update, :index, :destroy]
   before_action :set_outlets, only: [:new, :create, :edit, :update, :index, :destroy]
-  autocomplete :outlet, :outlet_name, full: true
-  autocomplete :obat, :obat_name, full: true
 
   def index
     @stock = Stock.new

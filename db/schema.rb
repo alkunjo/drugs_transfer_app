@@ -60,22 +60,6 @@ ActiveRecord::Schema.define(version: 20170212102037) do
     t.index ["otype_id"], name: "fk_outlets_outlet_types1_idx", using: :btree
   end
 
-  create_table "req_days", primary_key: "req_day_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "days"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "requests", primary_key: ["stock_id", "req_day_id"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "stock_id",    null: false
-    t.integer  "req_day_id",  null: false
-    t.integer  "request_qty"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["req_day_id"], name: "fk_requests_req_days1_idx", using: :btree
-    t.index ["stock_id"], name: "fk_requests_stocks1_idx", using: :btree
-  end
-
   create_table "roles", primary_key: "role_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "role_name",  limit: 45
     t.string   "role_desc",  limit: 300
@@ -92,14 +76,6 @@ ActiveRecord::Schema.define(version: 20170212102037) do
     t.index ["stock_id"], name: "fk_safety_stocks_stocks1_idx", using: :btree
   end
 
-  create_table "satuans", primary_key: "satuan_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "satuan_code",   limit: 45
-    t.string   "satuan_ukuran", limit: 45
-    t.integer  "satuan_isi"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
   create_table "ss_periods", primary_key: "ss_period_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "ss_period_period"
     t.datetime "created_at",       null: false
@@ -107,7 +83,6 @@ ActiveRecord::Schema.define(version: 20170212102037) do
   end
 
   create_table "stocks", primary_key: "stock_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "satuan_id"
     t.integer  "obat_id"
     t.integer  "outlet_id"
     t.integer  "stok_qty"
@@ -116,7 +91,6 @@ ActiveRecord::Schema.define(version: 20170212102037) do
     t.datetime "updated_at", null: false
     t.index ["obat_id"], name: "fk_stocks_obats1_idx", using: :btree
     t.index ["outlet_id"], name: "fk_stocks_outlets1_idx", using: :btree
-    t.index ["satuan_id"], name: "fk_stocks_satuans1_idx", using: :btree
   end
 
   create_table "transaksis", primary_key: "transaksi_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -162,13 +136,10 @@ ActiveRecord::Schema.define(version: 20170212102037) do
   add_foreign_key "dtrans", "stocks", primary_key: "stock_id", name: "fk_dtrans_stocks1"
   add_foreign_key "dtrans", "transaksis", primary_key: "transaksi_id", name: "fk_dtrans_transaksis1"
   add_foreign_key "outlets", "outlet_types", column: "otype_id", primary_key: "otype_id", name: "fk_outlets_outlet_types1"
-  add_foreign_key "requests", "req_days", primary_key: "req_day_id", name: "fk_requests_req_days1"
-  add_foreign_key "requests", "stocks", primary_key: "stock_id", name: "fk_requests_stocks1"
   add_foreign_key "safety_stocks", "ss_periods", primary_key: "ss_period_id", name: "fk_safety_stocks_ss_periods1"
   add_foreign_key "safety_stocks", "stocks", primary_key: "stock_id", name: "fk_safety_stocks_stocks1"
   add_foreign_key "stocks", "obats", primary_key: "obat_id", name: "fk_stocks_obats1"
   add_foreign_key "stocks", "outlets", primary_key: "outlet_id", name: "fk_stocks_outlets1"
-  add_foreign_key "stocks", "satuans", primary_key: "satuan_id", name: "fk_stocks_satuans1"
   add_foreign_key "transaksis", "outlets", column: "receiver_id", primary_key: "outlet_id", name: "fk_transaksis_outlets2"
   add_foreign_key "transaksis", "outlets", column: "sender_id", primary_key: "outlet_id", name: "fk_transaksis_outlets1"
   add_foreign_key "users", "outlets", primary_key: "outlet_id", name: "fk_users_outlets1"
