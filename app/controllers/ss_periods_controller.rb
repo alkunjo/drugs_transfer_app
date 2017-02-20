@@ -25,7 +25,9 @@ class SsPeriodsController < ApplicationController
 
   def create
     @ss_period = SsPeriod.new(ss_period_params)
+    # period = Date.new(ss_period.ss_year.to_i,ss_period.ss_month.to_i,01)
 
+    # @ss_period = SsPeriod.new(ss_period_period: period)
     respond_to do |format|
       if @ss_period.save
         return new
@@ -59,8 +61,7 @@ class SsPeriodsController < ApplicationController
       @ss_periods = SsPeriod.all
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def ss_period_params
-      params.require(:ss_period).permit(:ss_period_period)
+      params.require(:ss_period).permit(:ss_period_period, :ss_month, :ss_year, :ss_period)
     end
 end

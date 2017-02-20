@@ -1,6 +1,6 @@
 <% @ss_periods.each do |ss_period| %>
   <tr>
-  	<td><%= ss_period.ss_period_period %></td>
+  	<td>Minggu ke-<%= week(ss_period.ss_period_period) %> <%= period(ss_period.ss_period_period) %></td>
   	<td>
     	<%= link_to edit_ss_period_path(ss_period), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
     	<%= link_to del_ss_period_path(ss_period), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>

@@ -56,6 +56,7 @@ gem 'chartist-rails'
 gem 'ransack'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
+# gem 'week_of_month'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
