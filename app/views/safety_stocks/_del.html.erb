@@ -1,0 +1,5 @@
+<div class="container" align="center" style="max-width:400px;padding-top:10px">
+	Apakah Anda yakin menghapus safety_stock obat <%= @safety_stock.stock_id.obat.obat_name %> ?<br><br>
+	<%= link_to "Hapus", safety_stock_path(@safety_stock), method: :delete, remote:true , class: "btn btn-danger btn-sm" %>&nbsp;&nbsp;&nbsp;
+	<%= link_to "Batal", "#", class: "btn btn-default", data: {dismiss: "modal"} %><br><br>
+</div>

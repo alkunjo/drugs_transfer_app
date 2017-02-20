@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
+  resources :distances
+  
+  resources :safety_stocks do
+    collection {post :import}
+  end
   resources :ss_periods
   resources :stocks do
     get :autocomplete_obat_obat_name, on: :collection
     get :autocomplete_outlet_outlet_name, on: :collection
   end
 
-  resources :distances
   resources :obats
   resources :outlets
   resources :roles
@@ -26,4 +30,5 @@ Rails.application.routes.draw do
   get 'roles/:id/del' => 'roles#del', as: :del_role
   get 'stocks/:id/del' => 'stocks#del', as: :del_stock
   get 'ss_periods/:id/del' => 'ss_periods#del', as: :del_ss_period
+  get 'safety_stocks/:id/del' => 'safety_stocks#del', as: :del_safety_stock
 end

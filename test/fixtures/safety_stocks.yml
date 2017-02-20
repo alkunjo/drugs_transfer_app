@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  safety_stock_qty: 1
+  belongs_to: 
+  belongs_to: 
+
+two:
+  safety_stock_qty: 1
+  belongs_to: 
+  belongs_to: 
