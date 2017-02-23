@@ -25,6 +25,14 @@
         <div class="col-md-3">
           <%= f.collection_select :destination_id, @outlets, :id, :outlet_name, {prompt: "Pilih satu"}, {class: "form-control"} %>
         </div>
+      </div>
+      <div class="row">    
+        <div class="col-md-2">
+          <%= f.label :jarak , class: "control-label" %>
+        </div>
+        <div class="col-md-3">
+          <%= f.text_field :distance, class: "form-control", placeholder: "ex: 20Km" %>
+        </div>
         <div class="col-md-1" style="padding-top: 5px">
           <%= f.submit (f.object.new_record? ? "Tambah" : "Ubah"), class: "btn btn-sm btn-primary" %>
         </div>

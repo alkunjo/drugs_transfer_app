@@ -227,7 +227,7 @@ input:focus {
   max-height: none;
   min-height: 100%;
   overflow: hidden;
-  width: 260px;
+  width: 280px;
   z-index: 4;
 }
 .sidebar .sidebar-background {

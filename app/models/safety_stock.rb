@@ -1,7 +1,8 @@
 class SafetyStock < ApplicationRecord
 	self.primary_key = [:ss_period_id, :stock_id]
-	belongs_to :ss_period
+	belongs_to :ss_period, class_name: 'SsPeriod', foreign_key: 'ss_period_id'
 	belongs_to :stock
+	attr_accessor :ss_period_id
 
 	def self.to_csv(options = {})
 		CSV.generate(options) do |csv|
@@ -12,7 +13,7 @@ class SafetyStock < ApplicationRecord
 		end
 	end
 
-	def self.import(file)
+	def self.import(file, week_periode)
 		accessible_attributes = [:safety_stock_qty]
 	  spreadsheet = open_spreadsheet(file)
 	  
@@ -67,7 +68,18 @@ class SafetyStock < ApplicationRecord
 		  safety_stock = safety_stock.round
 		  logger.debug "Safety Stock: #{safety_stock}"
 
-		  
+		  # 6. take stock_id
+		  stock_id = spreadsheet.cell(i,1)
+		  logger.debug "Stock ID: #{stock_id.to_i}"
+
+		  # 7. take ss_period_id
+		  logger.debug "ss_period_id: #{week_periode}"
+
+		  # 8. save to safetystock
+			safetystock = SafetyStock.create(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
+
+		  # 9. update current_ss on stock_tables
+		  current_ss = Stock.update_attribute(current_ss: safety_stock)
 	  
 	  end
 

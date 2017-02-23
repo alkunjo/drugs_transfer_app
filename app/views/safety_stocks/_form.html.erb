@@ -1,0 +1,36 @@
+<%= form_for @safety_stock, remote: true, html: {style: "display:inline;"} do |f| %>
+    <% if @safety_stock.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@safety_stock.errors.count, "error") %> prohibited this tipe safety_stock from being saved:</h2>
+
+        <ul>
+        <% @safety_stock.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-1">
+          <%= f.label :import_data, class: "control-label" %><br>
+        </div>
+        <div class="col-md-3">
+          <%= f.file_field :file, class: "form-control" %>
+        </div>
+        <div class="col-md-1">
+          <%= f.label :periode, class: "control-label" %><br>
+        </div>
+        <div class="col-md-3">
+          <%= f.collection_select :ss_period_id, @ss_periods, :id, :week_period, {prompt: "Pilih satu"}, {class: "form-control"} %>
+        </div>
+        <div class="col-md-1" style="padding-top: 8px">
+          <%= f.submit (f.object.new_record? ? "Tambah" : "Ubah"), class: "btn btn-sm btn-primary" %>
+        </div>
+        <div class="col-md-1" style="padding-top: 8px">
+          <%= link_to 'Batal', new_safety_stock_path, class: "btn btn-sm btn-default", remote: true %>
+        </div>
+      </div>
+    </div>
+<% end %>

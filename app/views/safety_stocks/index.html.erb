@@ -1,18 +1,21 @@
 <% if current_user.admin? %>
 <div class="row">
+  
   <%= form_tag import_safety_stocks_path, multipart: true do %>
-    <div class="col-md-2"><b>Import Data Permintaan</b></div>
+    <div class="col-md-2" style="padding-top: 5px"><b>Import Data Permintaan</b></div>
     <div class="col-md-3">
       <%= file_field_tag :file, class: "form-control" %>
     </div>
-    <div class="col-md-2">Periode</div>
+    <div class="col-md-1" style="padding-top: 5px"><b>Periode</b></div>
     <div class="col-md-2">
-      <%= collection_select :ss_period_id, @ss_periods, :id, week(:ss_period_period), {prompt: "Pilih satu"}, {class: "form-control"} %>
+      
+      <%= collection_select(:ss_period, :ss_period_id, @ss_periods, :id, :week_period, {prompt: "Pilih Periode"}, {class: "form-control"}) %>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
       <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
     </div> 
   <% end %>
+
 </div>
 <% end %>
 <table class="table table-striped table-bordered" style="margin-top: 10px">
@@ -30,5 +33,5 @@
   </tbody>
 </table>
 <div align="center">
-  <%= will_paginate @generiks, renderer: BootstrapPagination::Rails %>
+  <%= will_paginate @safety_stocks, renderer: BootstrapPagination::Rails %>
 </div>

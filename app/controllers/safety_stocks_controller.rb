@@ -36,7 +36,10 @@ class SafetyStocksController < ApplicationController
   end
 
   def import
-    SafetyStock.import(params[:file])
+    ss_period = SsPeriod.where(ss_period_id: params[:ss_period][:ss_period_id]).first
+    ss_period_id = ss_period.ss_period_id.to_i
+    logger.debug "Periode #{ss_period_id}"
+    SafetyStock.import(params[:file], ss_period_id)
     redirect_to safety_stocks_path, notice: "Safety Stock berhasil diimport."
   end
 
@@ -55,6 +58,6 @@ class SafetyStocksController < ApplicationController
     end
 
     def safety_stock_params
-      params.require(:safety_stock).permit(:safety_stock_qty, :ss_period_period, :ss_period_id)
+      params.require(:safety_stock).permit(:safety_stock_qty, :ss_period_period, :ss_period_id, :ss_period)
     end
 end

@@ -1,5 +1,5 @@
 module SafetyStocksHelper
-		def bulan(date)
+	def bulan(date)
 		bulan = date.strftime("%B")
 		if bulan == 'January'
 			return 'Januari'

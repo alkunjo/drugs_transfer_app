@@ -3,8 +3,8 @@
   	<td><%= stock.obat.obat_name %></td>
   	<td><%= stock.outlet.outlet_name %></td>
   	<td><%= stock.stok_qty %></td>
+  	<td><%= stock.current_ss %></td>
   	<td>
-    	<%= link_to stock_path(stock), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %> <span class="fa fa-eye"></span> Lihat<% end %>
     	<%= link_to edit_stock_path(stock), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
     	<%= link_to del_stock_path(stock), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
   </tr>
