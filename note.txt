@@ -4,3 +4,6 @@ Scrap:
 API:
 - Google Map Distance Matrix API
 - Google Map Directions API
+
+Command Note:
+- Seed custom seed files: rake db:seed:seed_file_name

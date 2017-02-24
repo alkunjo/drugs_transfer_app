@@ -1,8 +1,8 @@
 class SafetyStock < ApplicationRecord
 	self.primary_key = :ss_period_id, :stock_id
-	belongs_to :ss_period #, class_name: "SsPeriod"
-	belongs_to :stock #, class_name: "Stock"
-	attr_accessor :ss_period_id, :stock_id, :safety_stock_qty
+	belongs_to :ss_period, class_name: "SsPeriod"
+	belongs_to :stock, class_name: "Stock"
+	attr_accessor :ss_period_id, :stock_id
 
 	def self.to_csv(options = {})
 		CSV.generate(options) do |csv|
@@ -75,25 +75,27 @@ class SafetyStock < ApplicationRecord
 		  logger.debug "ss_period_id: #{week_periode}"
 
 		  # 8. save to safetystock
-		  ss = SafetyStock.new(safety_stock_qty: safety_stock)
-		  ss_period = SsPeriod.find_by(ss_period_id: week_periode)
-		  stock = Stock.find_by(stock_id: stock_id)
-		  safetystock = ss_period.safety_stocks.create(ss_period_id: ss_period.ss_period_id, stock_id: stock.stock_id, safety_stock_qty: ss.safety_stock_qty)
-		  safetystock.save
+		  sql = "INSERT INTO safety_stocks(`ss_period_id`, `stock_id`, `safety_stock_qty`, `created_at`, `updated_at`) VALUES('#{week_periode}','#{stock_id.to_i}','#{safety_stock}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}')"
+		  ActiveRecord::Base.connection.execute(sql)
+
+		  # ss = SafetyStock.new(safety_stock_qty: safety_stock)
+		  # ss_period = SsPeriod.find_by(ss_period_id: week_periode)
+		  # stock = Stock.find_by(stock_id: stock_id)
+		  # safetystock = ss_period.safety_stocks.create(ss_period_id: ss_period.ss_period_id, stock_id: stock.stock_id, safety_stock_qty: ss.safety_stock_qty)
+		  # safetystock.save
 		  # safetystock = SafetyStock.find_by(ss_period_id: week_periode, stock_id: stock_id)
 		  # if safetystock.blank?
-		  # 	safetystock = SafetyStock.create(safety_stock_qty: safety_stock)
+	  	# safetystock = SafetyStock.create(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
 		  # end
 		  # safetystock.save!
 			# safetystock = SafetyStock.create(ss_period_id: 1, stock_id: 1, safety_stock_qty: safety_stock)
 			# safetystock = SafetyStock.create([{ss_period_id: week_periode},{stock_id: stock_id},{safety_stock_qty: safety_stock}])
 			# safetystock = SafetyStock.new(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
 			# safetystock.save!
-			# SafetyStock.create!([{ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock}])
 
 		  # 9. update current_ss on stock_tables
 		  stock = Stock.find_by(stock_id: stock_id)
-		  stock.update_attribute(current_ss: safety_stock)
+		  stock.update_attribute(:current_ss, safety_stock)
 		  stock.save!
 	  
 	  end

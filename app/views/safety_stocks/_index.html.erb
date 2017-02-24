@@ -1,6 +1,6 @@
 <% @safety_stocks.each do |safety_stock| %>
   <tr>
+  	<td><%= safety_stock.stock.outlet.outlet_name %> <%= safety_stock.stock.obat.obat_name %></td>
   	<td><%= safety_stock.safety_stock_qty %></td>
-    <td><%= link_to 'Hapus', del_safety_stock_path(safety_stock), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} %></td>
   </tr>
 <% end %>
