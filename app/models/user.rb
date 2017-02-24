@@ -6,8 +6,8 @@ class User < ApplicationRecord
   belongs_to :role
   belongs_to :outlet
 
-  validates_presence_of :user_name, :user_fullname, :user_address, :user_phone, :role_id, :outlet_id, message: "Semua field harus diisi!"
-	validates_uniqueness_of :user_name, message: "Username harus unik!"
+ #  validates_presence_of :user_name, :user_fullname, :user_address, :user_phone, :role_id, :outlet_id, message: "Semua field harus diisi!"
+	# validates_uniqueness_of :user_name, message: "Username harus unik!"
 
 	def assign_role
 		self.role = Role.find_by role_name: "PIC Pengadaan" if self.role.nil?

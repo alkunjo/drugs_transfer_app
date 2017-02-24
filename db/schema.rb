@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20170212102037) do
     t.integer  "safety_stock_qty"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.index ["ss_period_id"], name: "fk_safety_stocks_ss_periods1_idx", using: :btree
     t.index ["stock_id"], name: "fk_safety_stocks_stocks1_idx", using: :btree
   end
 

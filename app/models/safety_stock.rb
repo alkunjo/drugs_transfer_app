@@ -1,8 +1,8 @@
 class SafetyStock < ApplicationRecord
-	self.primary_key = [:ss_period_id, :stock_id]
-	belongs_to :ss_period, class_name: 'SsPeriod', foreign_key: 'ss_period_id'
-	belongs_to :stock
-	attr_accessor :ss_period_id
+	self.primary_key = :ss_period_id, :stock_id
+	belongs_to :ss_period #, class_name: "SsPeriod"
+	belongs_to :stock #, class_name: "Stock"
+	attr_accessor :ss_period_id, :stock_id, :safety_stock_qty
 
 	def self.to_csv(options = {})
 		CSV.generate(options) do |csv|
@@ -14,7 +14,6 @@ class SafetyStock < ApplicationRecord
 	end
 
 	def self.import(file, week_periode)
-		accessible_attributes = [:safety_stock_qty]
 	  spreadsheet = open_spreadsheet(file)
 	  
 	  # ignore header
@@ -76,22 +75,28 @@ class SafetyStock < ApplicationRecord
 		  logger.debug "ss_period_id: #{week_periode}"
 
 		  # 8. save to safetystock
-			safetystock = SafetyStock.create(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
+		  ss = SafetyStock.new(safety_stock_qty: safety_stock)
+		  ss_period = SsPeriod.find_by(ss_period_id: week_periode)
+		  stock = Stock.find_by(stock_id: stock_id)
+		  safetystock = ss_period.safety_stocks.create(ss_period_id: ss_period.ss_period_id, stock_id: stock.stock_id, safety_stock_qty: ss.safety_stock_qty)
+		  safetystock.save
+		  # safetystock = SafetyStock.find_by(ss_period_id: week_periode, stock_id: stock_id)
+		  # if safetystock.blank?
+		  # 	safetystock = SafetyStock.create(safety_stock_qty: safety_stock)
+		  # end
+		  # safetystock.save!
+			# safetystock = SafetyStock.create(ss_period_id: 1, stock_id: 1, safety_stock_qty: safety_stock)
+			# safetystock = SafetyStock.create([{ss_period_id: week_periode},{stock_id: stock_id},{safety_stock_qty: safety_stock}])
+			# safetystock = SafetyStock.new(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
+			# safetystock.save!
+			# SafetyStock.create!([{ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock}])
 
 		  # 9. update current_ss on stock_tables
-		  current_ss = Stock.update_attribute(current_ss: safety_stock)
+		  stock = Stock.find_by(stock_id: stock_id)
+		  stock.update_attribute(current_ss: safety_stock)
+		  stock.save!
 	  
 	  end
-
-	  # header = spreadsheet.row(1)
-	  # (2..spreadsheet.last_row).each do |i|
-	  #   row = Hash[[header, spreadsheet.row(i)].transpose]
-	  #   safety_stock = find_by_safety_stock_name(row["safety_stock_name"])
-	  #   if safety_stock.blank?
-	  #   	safety_stock = SafetyStock.create(safety_stock_name: row["safety_stock_name"], safety_stock_judul: row["safety_stock_judul"])
-	  #   end
-	  #   safety_stock.save!
-	  # end
 	end
 
 	def self.open_spreadsheet(file)

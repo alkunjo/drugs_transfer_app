@@ -58,6 +58,6 @@ class SafetyStocksController < ApplicationController
     end
 
     def safety_stock_params
-      params.require(:safety_stock).permit(:safety_stock_qty, :ss_period_period, :ss_period_id, :ss_period)
+      params.require(:safety_stock).permit(:ss_period_id, :stock_id, :safety_stock_qty)
     end
 end

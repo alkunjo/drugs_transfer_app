@@ -1,7 +1,7 @@
 class SsPeriod < ApplicationRecord
 	self.primary_key = "ss_period_id"
 	has_many :safety_stocks
-	attr_accessor :ss_month, :ss_year
+	has_many :stocks, through: :safety_stock
 	accepts_nested_attributes_for :safety_stocks, :allow_destroy => true
 
 	def bulan
