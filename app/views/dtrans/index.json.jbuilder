@@ -1,0 +1,1 @@
+json.array! @dtrans, partial: 'dtrans/dtran', as: :dtran

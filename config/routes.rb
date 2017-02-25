@@ -1,4 +1,44 @@
 Rails.application.routes.draw do
+
+  resources :transaksis do
+    resources :dtrans do
+      get :autocomplete_obat_obat_name, on: :collection
+      get :i_ask, on: :collection
+      get :i_drop, on: :collection
+      get :i_accept, on: :collection
+    end
+    member do
+      get 'show_ask'
+      get 'show_drop'
+      get 'show_accept'
+      get 'skrip_bpba'
+      get 'skrip_drop'
+      get 'skrip_accept'
+      get 'validate_ask'
+      get 'validate_drop'
+      get 'validate_accept'
+      get 'valdrop'
+      get 'del'
+    end
+    collection do
+      post :get_accept
+      get :autocomplete_outlet_outlet_name
+      get :ask
+      get :drop
+      get :accept
+      get :reports
+      get :report_ask
+      get :report_drop
+      get :report_accept
+      post :report_ask_control
+      get :report_ask_control
+      post :report_drop_control
+      get :report_drop_control
+      post :report_accept_control
+      get :report_accept_control
+    end
+  end
+
   resources :distances
   
   resources :safety_stocks do

@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 20170212102037) do
     t.integer  "dta_qty"
     t.integer  "dtd_qty"
     t.integer  "dtt_qty"
-    t.string   "dt_rsn"
+    t.string   "dtd_rsn"
+    t.string   "dtt_rsn"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["transaksi_id"], name: "fk_dtrans_transaksis1_idx", using: :btree

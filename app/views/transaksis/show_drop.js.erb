@@ -1,0 +1,12 @@
+$("#kpModal").modal("hide")
+$('#transModal').modal({backdrop: 'static', keyboard: false}) 
+$("#transModal").modal("show")
+$("#transModal .modal-title").html("Detail Permintaan Obat &nbsp;" +
+	"<% if @transaksi.trans_status == 1 %>" +
+		"<%= escape_javascript(link_to 'Validasi Dropping', valdrop_transaksi_path(@transaksi), class: 'btn btn-sm btn-danger', remote: true) %>"+
+	"<% elsif @transaksi.trans_status.present? %>" +
+		"<%= escape_javascript(link_to 'Cetak Form Dropping Obat', skrip_drop_transaksi_path(@transaksi, format: 'pdf'), class: 'btn btn-sm btn-success', target: '_blank') %>"+
+	"<% else %>"+
+		"- Permintaan Belum diisi "+
+	" <% end %>")
+$("#transModal .modal-isi").html("<%= escape_javascript(render partial: 'dtrans/drop') %>")

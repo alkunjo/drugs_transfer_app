@@ -7,3 +7,7 @@ API:
 
 Command Note:
 - Seed custom seed files: rake db:seed:seed_file_name
+
+Trial:
+- Use some outlets that is small or new that has some surrounding near outlets 
+- like kalibokor(26) - ngagel(11), pandugo(17) - rungkut(22) - kendangsari(10), gwalk(19) - klampis(21) - lontar(25) - darmo indah(24)

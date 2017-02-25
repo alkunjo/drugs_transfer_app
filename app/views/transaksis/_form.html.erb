@@ -1,0 +1,27 @@
+<%= form_for @transaksi, remote: true, html: {style: "display:inline;"} do |f| %>
+
+  <% if @transaksi.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transaksi.errors.count, "error") %> prohibited this transaksi from being saved:</h2>
+
+      <ul>
+      <% @transaksi.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.label :Apotek_Tujuan %><br>
+      </div>
+      <div class="col-md-4">
+        <%= f.autocomplete_field :outlet_name, autocomplete_outlet_outlet_name_transaksis_path, {class: "form-control"} %>
+      </div>
+      <div class="col-md-1">
+        <%= f.submit "Tambah", class: "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

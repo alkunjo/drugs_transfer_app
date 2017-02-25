@@ -1,0 +1,13 @@
+<%= form_for([@dtran.transaksi, @dtran], remote: true, :url => url_for(:controller => "obat_ins", :action => "update")) do |f| %>
+  <!-- <div class="row"> -->
+    <div class="col-sm-3">
+      <%= f.text_field :dtt_qty, class: "form-control" %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.submit "Ganti", class: "btn btn-sm btn-primary" %>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-sm btn-danger" onclick="">Batal</button>
+    </div>
+  <!-- </div> -->
+<% end %>

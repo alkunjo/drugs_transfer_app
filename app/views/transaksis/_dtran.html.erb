@@ -1,0 +1,11 @@
+<div class="col-md-4"><b>Apotek Pemberi: <%= Outlet.find(@tran.receiver_id).outlet_name %></b></div>
+<div class="col-md-3"><b>Tanggal: <%= Transaksi.find(@tran).dropped_at.strftime('%d-%B-%Y %H:%M') %></b></div>
+<div class="col-md-2">
+	<% if @tran.dropped? %>
+	<%= link_to 'Terima Obat', validate_accept_transaksi_path(@tran), class: "btn btn-sm btn-primary" %>
+	<% elsif @tran.accepted? %>
+	<%= link_to 'Cetak Bukti Penerimaan', skrip_accept_transaksi_path(@tran, format: 'pdf'), class: "btn btn-sm btn-success", target: '_blank' %>
+	<% end %>
+</div>
+
+<br/><br/>

@@ -1,0 +1,3 @@
+$(".isiTrans").html("<%= escape_javascript(render 'ask') %>")
+$("#transModal").modal("hide")
+$('#form').html("<%= escape_javascript(render action: :new, partial: 'form') %>")

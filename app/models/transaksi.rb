@@ -1,0 +1,2 @@
+class Transaksi < ApplicationRecord
+end

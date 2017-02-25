@@ -1,0 +1,21 @@
+<%= form_tag "/transaksis/report_ask_control", remote: true do %>
+  <div class="form-group">
+    <div class="row" style="margin-left: 15px">
+      <% if current_user.admin? %>
+      <div class="col-md-4">
+        <%= label_tag "Apotek" %>
+        <%= autocomplete_field :outlet_name, "", autocomplete_outlet_outlet_name_transaksis_path, {class: "form-control"} %>
+      </div>
+      <% else %>
+      <div class="col-md-4"></div>
+      <% end %>
+      <div class="col-md-4">
+        <%= label_tag "Bulan" %>
+        <%= select_tag "bulan", options_from_collection_for_select(@bulan, "bulan", "bulan"), include_blank: true, class: "form-control" %>
+      </div>
+      <div class="col-md-2" style="margin-top: 25px">
+        <%= submit_tag "Lihat Laporan", class: "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end -%>

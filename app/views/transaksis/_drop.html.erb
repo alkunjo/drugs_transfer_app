@@ -1,0 +1,21 @@
+<% @transaksis.each do |transaksi| %>
+  <tr>
+    <% if current_user.admin? %>
+      <td><%= Outlet.find(transaksi.receiver_id).outlet_name %></td>
+    <% end %> 
+    <td>
+      <% if current_user.pengadaan? %>
+        <%= Outlet.find(transaksi.receiver_id).outlet_name %>
+      <% else %>
+        <%= Outlet.find(transaksi.sender_id).outlet_name %>
+      <% end %>
+    </td>
+  	<td><%= transaksi.created_at.strftime('%d-%B-%Y %H:%M') %></td>
+  	<td>
+  		<%= transaksi.status %> 
+  	</td>
+    <td>
+    	<%= link_to show_drop_transaksi_path(transaksi), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %> <span class="fa fa-eye"></span> Lihat<% end %>
+    </td>
+  </tr>
+<% end %>

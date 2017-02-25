@@ -1,0 +1,17 @@
+<table id="lap_drop" class="table table-hover">
+	<thead>
+		<th>Apotek Yang Dituju</th>
+		<th>
+			Jumlah Dropping
+			<%= link_to 'Cetak Laporan', report_drop_control_transaksis_path(params.merge(format: 'pdf')), class: "btn btn-sm btn-success", target: '_blank' %><br/>
+		</th>
+	</thead>
+	<tbody>
+		<% @cek.each do |cek| %>
+		<tr>
+			<td><%= apotek(cek) %></td>
+			<td><%= to_rupiah(total_dropping(cek)) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -1,0 +1,10 @@
+$('#transModal').modal({backdrop: 'static', keyboard: false}) 
+$("#transModal").modal("show")
+$("#transModal .modal-title").html("Detail Transaksi Permintaan" +
+	" <% if @transaksi.trans_status.nil? %>"+
+		" <%= escape_javascript(link_to 'Tambah baru', new_transaksi_dtran_path(@transaksi), class: 'btn btn-sm btn-default', remote: true) %> "+
+		" <%= escape_javascript(link_to 'Validasi Permintaan', validate_ask_transaksi_path(@transaksi), class: 'btn btn-sm btn-danger', remote: true) %> "+
+	"<% else %>"+
+			"<%= escape_javascript(link_to 'Cetak BPBA', skrip_bpba_transaksi_path(@transaksi, format: 'pdf'), class: 'btn btn-sm btn-success', target: '_blank' ) %>"+
+	" <% end %>")
+$("#transModal .modal-isi").html("<%= escape_javascript(render partial: 'dtrans/ask') %>")

@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dtrans</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Transaksi</th>
+      <th>Dta qty</th>
+      <th>Dtd qty</th>
+      <th>Dtt qty</th>
+      <th>Dtd rsn</th>
+      <th>Dtt rsn</th>
+      <th>Belongs to</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dtrans.each do |dtran| %>
+      <tr>
+        <td><%= dtran.stock_id %></td>
+        <td><%= dtran.transaksi_id %></td>
+        <td><%= dtran.dta_qty %></td>
+        <td><%= dtran.dtd_qty %></td>
+        <td><%= dtran.dtt_qty %></td>
+        <td><%= dtran.dtd_rsn %></td>
+        <td><%= dtran.dtt_rsn %></td>
+        <td><%= dtran.belongs_to %></td>
+        <td><%= link_to 'Show', dtran %></td>
+        <td><%= link_to 'Edit', edit_dtran_path(dtran) %></td>
+        <td><%= link_to 'Destroy', dtran, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dtran', new_dtran_path %>

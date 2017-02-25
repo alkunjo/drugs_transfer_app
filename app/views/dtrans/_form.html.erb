@@ -1,0 +1,57 @@
+<%= form_for(dtran) do |f| %>
+  <% if dtran.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dtran.errors.count, "error") %> prohibited this dtran from being saved:</h2>
+
+      <ul>
+      <% dtran.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stock_id %>
+    <%= f.number_field :stock_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :transaksi_id %>
+    <%= f.number_field :transaksi_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dta_qty %>
+    <%= f.number_field :dta_qty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dtd_qty %>
+    <%= f.number_field :dtd_qty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dtt_qty %>
+    <%= f.number_field :dtt_qty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dtd_rsn %>
+    <%= f.text_field :dtd_rsn %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dtt_rsn %>
+    <%= f.text_field :dtt_rsn %>
+  </div>
+
+  <div class="field">
+    <%= f.label :belongs_to %>
+    <%= f.text_field :belongs_to %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

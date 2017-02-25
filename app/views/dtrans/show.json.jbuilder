@@ -1,0 +1,1 @@
+json.partial! "dtrans/dtran", dtran: @dtran

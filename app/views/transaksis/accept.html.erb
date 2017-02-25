@@ -1,0 +1,42 @@
+<div id="index">
+  <div id="flash">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+
+  <h3 align="center"><b>Penerimaan Obat</b></h3><br/><br/>
+
+  <div id="form" style="max-width:700px; min-height:100px">
+    <%= render 'form_accept' %>
+  </div>
+  <div id="obatIn" hidden>
+    <div class="container" id="detailTrans"></div>
+    <table class="table table-striped table-bordered">
+      <thead id="headTerima">
+        <tr>
+          <th style="text-align:center">Nama Obat</th>
+          <th style="text-align:center">Jumlah Terima</th>
+          <th style="text-align:center">Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody id="tabelTerima" class="isiTerima">
+      </tbody>
+    </table>
+  </div>
+  <div class="modal fade" id="obat_inModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog"style="width:450px">
+      <div class="modal-content">
+        <div class="modal-header" align="center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-isi"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="alert alert-danger fade in" id="notice" hidden>
+  <a href="#" class="close" data-dismiss="alert" aria-label="close" id="close">&times;</a>
+</div>
+
+<% if current_user.pengadaan? %>
+<h3 align="center"><b>Transaksi Permintaan Obat</b></h3><br/><br/>
+<div id="form" style="max-width:1000px; min-height:70px">
+  <%= render 'form' %>
+</div>
+
+<% elsif current_user.gudang? %>
+<h3 align="center"><b>Transaksi Dropping Obat</b></h3><br/><br/>
+
+<% else %>
+<h3 align="center"><b>Transaksi Permintaan-Dropping Obat</b></h3><br/><br/>
+<% end %>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr align="center">
+      <% if current_user.admin? %>
+        <th style="text-align:center">Apotek Asal</th>
+      <% end %>
+      <th style="text-align:center">Apotek Tujuan</th>
+      <th style="text-align:center">Tanggal</th>
+      <th style="text-align:center">Status</th>
+      <th colspan="1" style="text-align:center">Aksi</th>
+    </tr>
+  </thead>
+
+  <tbody id="tabelTrans" class="isiTrans">
+    <%= render 'index' %>
+  </tbody>
+</table>
+<div class="modal fade" id="transModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog"style="width:900px">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-isi"></div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="kpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog"style="width:450px">
+      <div class="modal-content">
+        <div class="modal-header" align="center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-isi"></div>
+        <div class="modal-footer" style="height:50px;padding:0px 0px 0px 0px"></div>
+      </div>
+    </div>
+  </div>

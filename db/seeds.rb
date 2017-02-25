@@ -1,3 +1,41 @@
+OutletType.create!([
+  {otype_id: 1, otype_name: "Business Management (BM)"},
+  {otype_id: 2, otype_name: "Outlet Apotek"}
+])
+Outlet.create!([
+  {outlet_id: 1, otype_id: 1, outlet_name: "KF No. 25 Darmo", outlet_address: "Jalan Darmo 2-4 ", outlet_phone: "031-5677777", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 2, otype_id: 2, outlet_name: "KF No. 26 Diponegoro", outlet_address: "Jalan Diponegoro 94", outlet_phone: "031-5677007", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 3, otype_id: 2, outlet_name: "KF No. 45 Darmo Kap", outlet_address: "Jalan Raya Darmo 94", outlet_phone: "031-5678819", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 4, otype_id: 2, outlet_name: "KF No. 52 Dukuh Kupang", outlet_address: "Jalan Raya Dukuh Kupang 108 - 110", outlet_phone: "031-5665755", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 5, otype_id: 2, outlet_name: "KF No. 166 A. Yani Surabaya", outlet_address: "Jalan A. Yani 228", outlet_phone: "031-8291785", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 6, otype_id: 2, outlet_name: "KF No. 407 Mulyosari", outlet_address: "Jalan Raya Mulyosari 228", outlet_phone: "031-5937994", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 7, otype_id: 2, outlet_name: "KF No. 243 Arjuno", outlet_address: "Jalan Arjuno 5", outlet_phone: "031-5345031", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 8, otype_id: 2, outlet_name: "KF No. 24 Dharmawangsa", outlet_address: "Jalan Raya Dharmawangsa 24", outlet_phone: "031-5032775", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 9, otype_id: 2, outlet_name: "KF No. 22 Bratang", outlet_address: "Jalan Bratang Gede 100A", outlet_phone: "031-5016713", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 10, otype_id: 2, outlet_name: "KF No. 23 Kendangsari", outlet_address: "Jalan Raya Kendangsari Blk.J/7", outlet_phone: "031-8414215", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 11, otype_id: 2, outlet_name: "KF No. 35 Ngagel Jaya", outlet_address: "Jalan Ngagel Jaya Selatan 109", outlet_phone: "5049098", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 12, otype_id: 2, outlet_name: "KF No. 163 Jokotole", outlet_address: "Jalan Jokotole 5", outlet_phone: "031-3091016", outlet_city: "Bangkalan", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 13, otype_id: 2, outlet_name: "KF No. 274 Pamekasan", outlet_address: "Jalan Trunojoyo 92", outlet_phone: "0324-611332", outlet_city: "Pamekasan", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 14, otype_id: 2, outlet_name: "KF No. 175 Karang Menjangan", outlet_address: "Jalan Karangmenjangan 9", outlet_phone: "031-5991991", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 15, otype_id: 2, outlet_name: "KF No. 304 Perak", outlet_address: "Jalan Perak Timur 166", outlet_phone: "031-3550007", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 16, otype_id: 2, outlet_name: "KF No. 419 Trunojoyo", outlet_address: "Jalan Trunojoyo 75A", outlet_phone: "031-3095459", outlet_city: "Bangkalan", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 17, otype_id: 2, outlet_name: "KF No. 432 Pandugo", outlet_address: "Jalan Pandugo Merr 2", outlet_phone: "", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 18, otype_id: 2, outlet_name: "KF No. 459 Wiyung", outlet_address: "Jalan Raya Menganti A-171,R.P.I\t", outlet_phone: "031-7668267", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 19, otype_id: 2, outlet_name: "KF No. 460 G-Walk", outlet_address: "Jalan Ruko Taman Gapuro B-2.G.Walk\t", outlet_phone: "031-7411121", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 20, otype_id: 2, outlet_name: "KF No. 485 Ciliwung", outlet_address: "Jalan Ciliwung 76", outlet_phone: "031-5674485", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 21, otype_id: 2, outlet_name: "KF No. 511 Klampis", outlet_address: "Jalan Klampis Jaya A-30", outlet_phone: "031-5926293", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 22, otype_id: 2, outlet_name: "KF No. 526 Rungkut", outlet_address: "Jalan Rungkut Madya 99", outlet_phone: "031-8721059", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 23, otype_id: 2, outlet_name: "KF Manukan", outlet_address: "Jalan Manukan Tama No 79", outlet_phone: "031-7416880", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 24, otype_id: 2, outlet_name: "KF Darmo Indah", outlet_address: "Jalan Darmo Indah Timur Blok SS 8", outlet_phone: "031-7312414", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 25, otype_id: 2, outlet_name: "KF Lontar", outlet_address: "Jalan Raya Lontar Blok PAL 35", outlet_phone: "", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
+  {outlet_id: 26, otype_id: 2, outlet_name: "KF Kalibokor", outlet_address: "Jalan Raya Ngagel Jaya 1", outlet_phone: "031-99005447", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""}
+])
+Role.create!([
+  {role_id: 1, role_name: "Super Admin", role_desc: "Super Admin dapat melakukan pengelolaan master dan transaksi sistem"},
+  {role_id: 2, role_name: "PIC Pengadaan", role_desc: "PIC Pengadaan dapat melakukan permintaan obat ke outlet yang dituju serta mencetak laporan permintaan obat"},
+  {role_id: 3, role_name: "PIC Gudang", role_desc: "PIC Gudang dapat melakukan dropping obat ke outlet peminta atau menerima pemberian obat dari outlet pemberi dan mengupdate stok obat, serta membuat laporan dropping obat dan laporan penerimaan obat"},
+  {role_id: 4, role_name: "Pimpinan Outlet", role_desc: "Pimpinan Outlet dapat melihat laporan permintaan obat, laporan dropping obat, laporan penerimaan obat, serta menyetujui permintaan dan dropping obat."}
+])
 User.create!([
   {user_id: 1, role_id: 1, outlet_id: 1, user_name: "yoyoksul", user_fullname: "Yoyok Sulistiono", user_address: "Jalan Magersari 28 Sidoarjo", user_phone: "031-8784298", email: "yoyoksul@gmail.com", password: "yoyoksul", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 11, current_sign_in_at: "2017-02-18 13:51:13", last_sign_in_at: "2017-02-18 13:44:01", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1"},
   {user_id: 2, role_id: 2, outlet_id: 2, user_name: "sunaryo", user_fullname: "Sunaryo Nagoro", user_address: "Jalan Dinoyo 19 Surabaya", user_phone: "085938271263", email: "sunaryo64@gmail.com", password: "sunaryo64", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil},
@@ -1229,44 +1267,6 @@ Obat.create!([
   {obat_id: 1147, obat_name: "LENTRIKULAR TM", obat_hpp: 30000},
   {obat_id: 1148, obat_name: "OB PEPPERMINT", obat_hpp: 3500},
   {obat_id: 1149, obat_name: "NURSECAP", obat_hpp: 40000}
-])
-Outlet.create!([
-  {outlet_id: 1, otype_id: 1, outlet_name: "KF No. 25 Darmo", outlet_address: "Jalan Darmo 2-4 ", outlet_phone: "031-5677777", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 2, otype_id: 2, outlet_name: "KF No. 26 Diponegoro", outlet_address: "Jalan Diponegoro 94", outlet_phone: "031-5677007", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 3, otype_id: 2, outlet_name: "KF No. 45 Darmo Kap", outlet_address: "Jalan Raya Darmo 94", outlet_phone: "031-5678819", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 4, otype_id: 2, outlet_name: "KF No. 52 Dukuh Kupang", outlet_address: "Jalan Raya Dukuh Kupang 108 - 110", outlet_phone: "031-5665755", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 5, otype_id: 2, outlet_name: "KF No. 166 A. Yani Surabaya", outlet_address: "Jalan A. Yani 228", outlet_phone: "031-8291785", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 6, otype_id: 2, outlet_name: "KF No. 407 Mulyosari", outlet_address: "Jalan Raya Mulyosari 228", outlet_phone: "031-5937994", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 7, otype_id: 2, outlet_name: "KF No. 243 Arjuno", outlet_address: "Jalan Arjuno 5", outlet_phone: "031-5345031", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 8, otype_id: 2, outlet_name: "KF No. 24 Dharmawangsa", outlet_address: "Jalan Raya Dharmawangsa 24", outlet_phone: "031-5032775", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 9, otype_id: 2, outlet_name: "KF No. 22 Bratang", outlet_address: "Jalan Bratang Gede 100A", outlet_phone: "031-5016713", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 10, otype_id: 2, outlet_name: "KF No. 23 Kendangsari", outlet_address: "Jalan Raya Kendangsari Blk.J/7", outlet_phone: "031-8414215", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 11, otype_id: 2, outlet_name: "KF No. 35 Ngagel Jaya", outlet_address: "Jalan Ngagel Jaya Selatan 109", outlet_phone: "5049098", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 12, otype_id: 2, outlet_name: "KF No. 163 Jokotole", outlet_address: "Jalan Jokotole 5", outlet_phone: "031-3091016", outlet_city: "Bangkalan", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 13, otype_id: 2, outlet_name: "KF No. 274 Pamekasan", outlet_address: "Jalan Trunojoyo 92", outlet_phone: "0324-611332", outlet_city: "Pamekasan", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 14, otype_id: 2, outlet_name: "KF No. 175 Karang Menjangan", outlet_address: "Jalan Karangmenjangan 9", outlet_phone: "031-5991991", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 15, otype_id: 2, outlet_name: "KF No. 304 Perak", outlet_address: "Jalan Perak Timur 166", outlet_phone: "031-3550007", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 16, otype_id: 2, outlet_name: "KF No. 419 Trunojoyo", outlet_address: "Jalan Trunojoyo 75A", outlet_phone: "031-3095459", outlet_city: "Bangkalan", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 17, otype_id: 2, outlet_name: "KF No. 432 Pandugo", outlet_address: "Jalan Pandugo Merr 2", outlet_phone: "", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 18, otype_id: 2, outlet_name: "KF No. 459 Wiyung", outlet_address: "Jalan Raya Menganti A-171,R.P.I\t", outlet_phone: "031-7668267", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 19, otype_id: 2, outlet_name: "KF No. 460 G-Walk", outlet_address: "Jalan Ruko Taman Gapuro B-2.G.Walk\t", outlet_phone: "031-7411121", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 20, otype_id: 2, outlet_name: "KF No. 485 Ciliwung", outlet_address: "Jalan Ciliwung 76", outlet_phone: "031-5674485", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 21, otype_id: 2, outlet_name: "KF No. 511 Klampis", outlet_address: "Jalan Klampis Jaya A-30", outlet_phone: "031-5926293", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 22, otype_id: 2, outlet_name: "KF No. 526 Rungkut", outlet_address: "Jalan Rungkut Madya 99", outlet_phone: "031-8721059", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 23, otype_id: 2, outlet_name: "KF Manukan", outlet_address: "Jalan Manukan Tama No 79", outlet_phone: "031-7416880", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 24, otype_id: 2, outlet_name: "KF Darmo Indah", outlet_address: "Jalan Darmo Indah Timur Blok SS 8", outlet_phone: "031-7312414", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 25, otype_id: 2, outlet_name: "KF Lontar", outlet_address: "Jalan Raya Lontar Blok PAL 35", outlet_phone: "", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""},
-  {outlet_id: 26, otype_id: 2, outlet_name: "KF Kalibokor", outlet_address: "Jalan Raya Ngagel Jaya 1", outlet_phone: "031-99005447", outlet_city: "Surabaya", outlet_email: "", outlet_fax: ""}
-])
-OutletType.create!([
-  {otype_id: 1, otype_name: "Business Management (BM)"},
-  {otype_id: 2, otype_name: "Outlet Apotek"}
-])
-Role.create!([
-  {role_id: 1, role_name: "Super Admin", role_desc: "Super Admin dapat melakukan pengelolaan master dan transaksi sistem"},
-  {role_id: 2, role_name: "PIC Pengadaan", role_desc: "PIC Pengadaan dapat melakukan permintaan obat ke outlet yang dituju serta mencetak laporan permintaan obat"},
-  {role_id: 3, role_name: "PIC Gudang", role_desc: "PIC Gudang dapat melakukan dropping obat ke outlet peminta atau menerima pemberian obat dari outlet pemberi dan mengupdate stok obat, serta membuat laporan dropping obat dan laporan penerimaan obat"},
-  {role_id: 4, role_name: "Pimpinan Outlet", role_desc: "Pimpinan Outlet dapat melihat laporan permintaan obat, laporan dropping obat, laporan penerimaan obat, serta menyetujui permintaan dan dropping obat."}
 ])
 SsPeriod.create!([
   {ss_period_id: 1, ss_period_period: "2017-01-01 00:00:00"},

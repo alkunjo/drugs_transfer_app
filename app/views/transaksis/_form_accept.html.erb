@@ -1,0 +1,13 @@
+<%= form_tag "/transaksis/get_accept", remote: true do %>
+  <div class="form-group">
+    <div class="col-md-3">
+      <%= label_tag "Nomor_BPBA" %>
+    </div>
+    <div class="col-md-5">
+      <%= text_field_tag "obat_in", "", :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= submit_tag "Submit", class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
+<% end -%>

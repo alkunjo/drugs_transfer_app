@@ -1,0 +1,2 @@
+class Dtran < ApplicationRecord
+end

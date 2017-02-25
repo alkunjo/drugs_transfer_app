@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_id: 1
+  transaksi_id: 1
+  dta_qty: 1
+  dtd_qty: 1
+  dtt_qty: 1
+  dtd_rsn: MyString
+  dtt_rsn: MyString
+  belongs_to: 
+
+two:
+  stock_id: 1
+  transaksi_id: 1
+  dta_qty: 1
+  dtd_qty: 1
+  dtt_qty: 1
+  dtd_rsn: MyString
+  dtt_rsn: MyString
+  belongs_to: 
