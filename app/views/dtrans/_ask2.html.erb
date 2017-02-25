@@ -1,0 +1,9 @@
+<% @transaksi.dtrans.each do |dtran| %>
+	<tr>
+  	<td><%= Obat.find(dtran.obat_id).obat_name %></td>
+    <td><%= dtran.dta_qty %>&nbsp; <%= getKemasan(dtran.obat_id) %>@<%= getIsi(dtran.obat_id) %></td>
+    <% if @transaksi.unvalidated? %>
+    <td><%= link_to [dtran.transaksi, dtran], method: :delete, :class => "btn btn-danger btn-sm", remote: true do %><span class="fa fa-trash-o"></span> Hapus<% end %></td>
+    <% end %>
+  </tr>
+<% end %>

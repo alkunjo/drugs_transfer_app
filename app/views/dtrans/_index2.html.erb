@@ -1,0 +1,17 @@
+<% @transaksi.dtrans.each do |dtran| %>
+	<tr>
+  	<td><%= Obat.find(dtran.obat_id).obat_name %></td>
+    <td><%= dtran.dta_qty %></td>
+  <% if current_user.gudang? %>
+  	<td><%= Stock.where(outlet_id: current_user.outlet_id).where(obat_id: dtran.obat_id).first.stok_qty %></td>
+  <% end %>
+  <% if @transaksi.trans_status.nil? && current_user.pengadaan? %>
+    <td><%= link_to [dtran.transaksi, dtran], method: :delete, :class => "btn btn-danger btn-sm", remote: true do %><span class="fa fa-trash-o"></span> Hapus<% end %></td>
+  <% elsif @transaksi.trans_status == 1 && current_user.gudang? %>
+    <td><%= dtran.dtd_qty.nil? ? 0 : dtran.dtd_qty %></td>
+    <td><%= dtran.dt_rsn %></td>
+    <td id="edit_<%= dtran.obat_id %>"><%= link_to "Drop", edit_transaksi_dtran_path(dtran.transaksi, dtran), class: 'btn btn-sm btn-default', remote: true %>
+    </td>
+  <% end %>
+  </tr>
+<% end %>

@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-1.10.2
 //= require jquery-ui
 //= require jquery_ujs
 //= require autocomplete-rails

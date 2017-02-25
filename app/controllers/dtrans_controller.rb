@@ -1,74 +1,106 @@
 class DtransController < ApplicationController
-  before_action :set_dtran, only: [:show, :edit, :update, :destroy]
-
-  # GET /dtrans
-  # GET /dtrans.json
+  before_filter :authenticate_user!
+  before_action :set_transaksi, only: [:index, :new, :create, :edit, :update, :destroy]
+  #before_action :set_obats, only: [:index, :new]
+  autocomplete :obat, :obat_name, full: true
+  
   def index
-    @dtrans = Dtran.all
+    @transaksi = Transaksi.find(params[:transaksi_id])
+    @dtrans = @transaksi.dtrans.present?
+    @dtran = @transaksi.dtrans.find(params[:id])
   end
 
-  # GET /dtrans/1
-  # GET /dtrans/1.json
-  def show
-  end
-
-  # GET /dtrans/new
   def new
-    @dtran = Dtran.new
+    transaksi = Transaksi.find(params[:transaksi_id])
+    @dtrans = transaksi.dtrans.present?
+    @dtran = transaksi.dtrans.build
+
+    respond_to do |format|
+      format.js {render action: 'new'}
+    end
   end
 
-  # GET /dtrans/1/edit
-  def edit
-  end
-
-  # POST /dtrans
-  # POST /dtrans.json
   def create
-    @dtran = Dtran.new(dtran_params)
+    dtran = Dtran.new(dtran_params)
+    transaksi = Transaksi.find(params[:transaksi_id])
+    obat = Obat.find_by_obat_name(dtran.obat_name)
+    exist = Dtran.where(transaksi_id: transaksi.transaksi_id, obat_id: obat.obat_id).first
+    if exist
+      exist.update_attribute(:dta_qty, (exist.dta_qty + dtran.dta_qty))
+      if exist.save
+        respond_to do |format|
+          format.js {render "save_ask"}
+        end
+      end
+    else
+      @dtran = @transaksi.dtrans.create(dta_qty: dtran.dta_qty, obat_id: obat.obat_id, transaksi_id: transaksi.transaksi_id)
 
-    respond_to do |format|
-      if @dtran.save
-        format.html { redirect_to @dtran, notice: 'Dtran was successfully created.' }
-        format.json { render :show, status: :created, location: @dtran }
-      else
-        format.html { render :new }
-        format.json { render json: @dtran.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @dtran.save
+          format.js {render "save_ask"}
+        else
+          format.js {render "new"}
+        end
       end
     end
   end
 
-  # PATCH/PUT /dtrans/1
-  # PATCH/PUT /dtrans/1.json
+  def edit
+    transaksi = Transaksi.find(params[:transaksi_id])
+    dtrans = transaksi.dtrans
+    @dtran = transaksi.dtrans.find(params[:id])
+    respond_to do |format|
+      format.js {render action: 'edit'}
+    end
+  end
+
   def update
-    respond_to do |format|
-      if @dtran.update(dtran_params)
-        format.html { redirect_to @dtran, notice: 'Dtran was successfully updated.' }
-        format.json { render :show, status: :ok, location: @dtran }
-      else
-        format.html { render :edit }
-        format.json { render json: @dtran.errors, status: :unprocessable_entity }
+    transaksi = Transaksi.find(params[:transaksi_id])
+    @dtran = transaksi.dtrans.find(params[:id])
+    stok = Stock.where(obat_id: @dtran.obat_id, outlet_id: current_user.outlet_id).first
+    obat = Obat.where(obat_id: @dtran.obat_id).first
+    beri = dtran_params[:dtd_qty].to_f.nil? ? 0 : dtran_params[:dtd_qty].to_f
+    if (stok.stok_qty - beri) < obat.obat_minStock #jika sisa stok yang diberikan kurang dari stok minimum
+      flash.now[:danger] = "Jumlah beri melebihi stok minimum"
+      respond_to do |format|
+        format.js {render 'save_drop'}  
+      end
+    elsif beri > @dtran.dta_qty
+      flash.now[:danger] = "Jumlah beri melebihi yang diminta"
+      respond_to do |format|
+        format.js {render 'save_drop'}  
+      end
+    else
+      @dtran.update(dtran_params)
+      if @dtran.dtt_qty.nil?
+        @dtran.update_attribute(:dtt_qty, @dtran.dtd_qty)
+      end
+      flash.now[:success] = "Dropping obat berhasil ditambahkan"
+      respond_to do |format|
+        format.js { render 'save_drop'}
+        #format.js { render 'save'}
       end
     end
   end
 
-  # DELETE /dtrans/1
-  # DELETE /dtrans/1.json
   def destroy
+    @dtran = @transaksi.dtrans.find(params[:id])
     @dtran.destroy
     respond_to do |format|
-      format.html { redirect_to dtrans_url, notice: 'Dtran was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js {render "save_ask"}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dtran
-      @dtran = Dtran.find(params[:id])
+    def set_transaksi
+      @transaksi = Transaksi.find(params[:transaksi_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def set_obats
+      @obats = Obat.all
+    end
+
     def dtran_params
-      params.require(:dtran).permit(:stock_id, :transaksi_id, :dta_qty, :dtd_qty, :dtt_qty, :dtd_rsn, :dtt_rsn, :belongs_to)
+      params.require(:dtran).permit(:dta_qty, :dtd_qty, :dt_rsn, :obat_id, :transaksi_id, :obat_name, :dtt_qty)
     end
 end

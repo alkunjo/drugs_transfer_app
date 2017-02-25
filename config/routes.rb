@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   resources :roles
   resources :outlet_types
 
+  resources :dashboard
   root to: "dashboard#index"  
 
   devise_for :users

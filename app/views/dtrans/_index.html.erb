@@ -1,0 +1,36 @@
+<div style="max-width:800px; margin-left:10px" id="dta_index">
+  <br>
+
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+      <%= value %>
+    </div>
+  <% end %>
+
+  <div id="dta_form"></div>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Obat</th>
+        <th>Minta</th>
+       <% if current_user.gudang? %>
+        <th>Stok Gudang</th>
+       <% end %>
+       <% if @transaksi.trans_status.nil? && current_user.pengadaan? %>
+          <th colspan="3">Aksi</th>
+       <% elsif @transaksi.trans_status == 1 && current_user.gudang? %>
+          <th>Beri</th>
+          <th>Alasan</th>
+          <th colspan="3">Aksi</th>
+       <% end %>
+      </tr>
+    </thead>
+
+    <tbody id="dta_tbl">
+      <%= render partial: "dtrans/index2" %>
+    </tbody>
+  </table>
+  
+</div>

@@ -1,4 +1,4 @@
-<div class="container" style="max-width:400px; margin:15px">
+<div class="container" style="max-width:400px">
 <%= form_for([@dtran.transaksi, @dtran], remote: true) do |f| %>
   <% if @dtran.errors.any? %>
     <div id="error_explanation">
@@ -11,18 +11,20 @@
       </ul>
     </div>
   <% end %>
-
   <div class="row">
     <div class="col-sm-4">
-      <%= f.label :obat %>
-      <%= f.autocomplete_field :obat_name, autocomplete_obat_obat_name_transaksi_dtrans_path, {class: "form-control"} %>
+      <%= f.label :kuantitas_beri %><br>
+      <%= f.text_field :dtd_qty, class: "form-control" %>
     </div>
-    <div class="col-sm-4">
-      <%= f.label :kuantitas %><br>
-      <%= f.text_field :dta_qty, class: "form-control" %>
+    <div class="col-sm-3">
+      <%= f.label :alasan %>
+      <%= f.text_field :dt_rsn, class: "form-control" %>
+    </div>
+    <div class="col-sm-2" style="margin-top:25px;margin-right:10px">
+      <%= f.submit "Tambah", class: "btn btn-sm btn-primary" %>
     </div>
     <div class="col-sm-2" style="margin-top:25px">
-      <%= f.submit "Tambah", class: "btn btn-sm btn-primary" %>
+      <button class="btn btn-sm btn-danger" onclick="">Batal</button>
     </div>
   </div>
 <% end %>
