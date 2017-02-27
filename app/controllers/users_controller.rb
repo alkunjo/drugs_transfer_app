@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy, :del]
   before_action :set_users, only: [:index, :new, :create, :update, :edit, :destroy, :del]
   before_action :set_outlets, only: [:index, :new, :create, :update, :edit, :destroy, :del]

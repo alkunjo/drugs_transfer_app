@@ -1,5 +1,5 @@
 class ObatsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_obat, only: [:show, :edit, :update, :destroy, :del]
   before_action :set_obats, only: [:index, :new, :create, :update, :edit, :destroy, :del]
 

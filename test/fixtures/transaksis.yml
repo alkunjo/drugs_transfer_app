@@ -1,17 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  receiver_id: 1
   sender_id: 1
+  receiver_id: 1
   trans_status: 1
-  asked_at: 2017-02-25
-  dropped_at: 2017-02-25
-  accepted_at: 2017-02-25
+  asked_at: 2017-02-25 22:15:00
+  dropped_at: 2017-02-25 22:15:00
+  accepted_at: 2017-02-25 22:15:00
+  sender: one
+  receiver: one
 
 two:
-  receiver_id: 1
   sender_id: 1
+  receiver_id: 1
   trans_status: 1
-  asked_at: 2017-02-25
-  dropped_at: 2017-02-25
-  accepted_at: 2017-02-25
+  asked_at: 2017-02-25 22:15:00
+  dropped_at: 2017-02-25 22:15:00
+  accepted_at: 2017-02-25 22:15:00
+  sender: two
+  receiver: two

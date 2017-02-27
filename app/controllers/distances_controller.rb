@@ -1,5 +1,5 @@
 class DistancesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_distance, only: [:show, :edit, :update, :destroy, :del]
   before_action :set_distances, only: [:index, :new, :create, :update, :edit, :destroy, :del]
   before_action :set_outlets, only: [:index, :new, :create, :update, :edit, :destroy, :del]

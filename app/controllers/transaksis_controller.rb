@@ -1,37 +1,40 @@
 class TransaksisController < ApplicationController
   include TransaksisHelper
-  before_filter :authenticate_user!
-  before_filter :set_activities
+  before_action :authenticate_user!
+  before_action :set_activities
   before_action :set_transaksi, only: [:edit, :update, :destroy, :del, :show_ask, :show_drop, :show_accept, :skrip_bpba, :skrip_drop, :validate_ask, :validate_drop]
+  before_action :set_transaksi_ask, only: [:index, :show_a]
+  before_action :set_transaksi_drop, only: [:index, :show_d]
   before_action :set_transaksis, only: [:ask, :drop, :accept, :new, :create]
   autocomplete :outlet, :outlet_name, full: true
 
   def index
-    if current_user.pengadaan?
-      @transaksi = Transaksi.new
-      redirect_to ask_transaksis_path
-    elsif current_user.gudang?
-      redirect_to drop_transaksis_path || accept_transaksis_path
-    elsif current_user.admin?
-      redirect_to drop_transaksis_path || accept_transaksis_path
-    else
-      redirect_to dashboard_index_path
-    end
+  	path = case current_user.role
+  		when 'Pengadaan'
+  			ask_transaksis_path
+  		when 'Gudang', 'Admin Gudang'
+  			drop_transaksis_path
+  		when 'Manager', 'Admin'
+  			report_ask_transaksis_path
+  		else
+  			ask_transaksis_path
+  	end
+
+  	redirect_to path
   end
 
   # ini buat index permintaan, dropping dan penerimaan obat
   def ask
     @transaksi = Transaksi.new
-    @dtrans = @transaksi.dtrans.build
   end
 
-  def drop    
+  def drop  	
   end
 
   def accept
-    if params[:id].present?
-      @transaksi = Transaksi.find(params[:id])
-    end
+  	if params[:id].present?
+  		@transaksi = Transaksi.find(params[:id])
+  	end
   end
   # ini buat index permintaan, dropping dan penerimaan obat
 
@@ -188,7 +191,7 @@ class TransaksisController < ApplicationController
 
   # ini digunakan untuk nyetak skrip per fungsi 
   def skrip_bpba
-    @transaksi = Transaksi.find(params[:id])
+  	@transaksi = Transaksi.find(params[:id])
     sender = @transaksi.sender_id.to_s
     if sender.length == 1
       sender = '0'+sender
@@ -227,7 +230,7 @@ class TransaksisController < ApplicationController
   end
 
   def skrip_accept
-    @transaksi = Transaksi.find(params[:id])
+  	@transaksi = Transaksi.find(params[:id])
     sender = @transaksi.sender_id.to_s
     if sender.length == 1
       sender = '0'+sender
@@ -367,6 +370,56 @@ class TransaksisController < ApplicationController
     end
   end
 
+  # tambah permintaan obat
+  def add_ask
+    @transaksi = Transaksi.find_or_create_by(sender_id: current_user.outlet_id, trans_status: nil)
+    @dtrans = @transaksi.dtrans
+    @dtran = Dtran.new(transaksi_id: @transaksi.transaksi_id)
+    # DtransController.new
+    respond_to do |format|
+      format.js {render "add_task"}
+    end
+  end
+
+  # cek ketersediaan obat
+  def cek_availability
+    @transaksi = Transaksi.find(params[:transaksi_id])
+
+    # 1. find 5 nearby location
+    locations = Distance.where(origin_id: current_user.outlet_id).where.not(destination_id: current_user.outlet_id).order(distance: :asc).limit(5)
+    cek_stok = 0
+    destination = -1
+
+    # 2. find stock availability in 5 nearby location
+    locations.each do |lokasi|
+      # logger.debug "#{lokasi.destination.outlet_name}: #{lokasi.distance}"
+      @transaksi.dtrans.each do |dtran|
+        
+        obat = Obat.find_by(obat_name: dtran.stock.obat.obat_name) # 3. find the drugs
+        stok = Stock.find_by(obat_id: obat.obat_id, outlet_id: lokasi.destination_id) # 4. take stok
+
+        # 5. check if the stock is more or same with current_ss when it's reduced by dta_qty so the stock is unavailable and stop the stock loop
+        if (stok.stok_qty - dtran.dta_qty) < stok.current_ss
+          cek_stok = -1
+          break
+        else # else stok is available
+          cek_stok = 1
+        end
+      end
+
+      if cek_stok = 1 # if stock is available assign the destination_id and stop the destination loop
+        destination = lokasi.destination_id
+        break
+      end
+    end
+    if cek_stok == 1
+      logger.debug "Outlet yang memungkinkan ditemukan di #{Outlet.find_by(outlet_id: destination).outlet_name}"
+    else
+      logger.debug "Mohon maaf stok obat tidak ditemukan"
+    end    
+
+  end
+
   def edit
   end
 
@@ -443,7 +496,7 @@ class TransaksisController < ApplicationController
       if current_user.admin?
         @transaksis = Transaksi.all
       elsif current_user.pengadaan?
-        @transaksis = Transaksi.where(sender_id: current_user.outlet_id)
+        @transaksis = Transaksi.where(sender_id: current_user.outlet_id).where.not(receiver_id: nil)
       elsif current_user.gudang?
         @transaksis = Transaksi.where(receiver_id: current_user.outlet_id).where(trans_status: [1,2,3])
       end          

@@ -17,7 +17,7 @@ class DtransControllerTest < ActionDispatch::IntegrationTest
 
   test "should create dtran" do
     assert_difference('Dtran.count') do
-      post dtrans_url, params: { dtran: { belongs_to: @dtran.belongs_to, dta_qty: @dtran.dta_qty, dtd_qty: @dtran.dtd_qty, dtd_rsn: @dtran.dtd_rsn, dtt_qty: @dtran.dtt_qty, dtt_rsn: @dtran.dtt_rsn, stock_id: @dtran.stock_id, transaksi_id: @dtran.transaksi_id } }
+      post dtrans_url, params: { dtran: { dta_qty: @dtran.dta_qty, dtd_qty: @dtran.dtd_qty, dtd_rsn: @dtran.dtd_rsn, dtt_qty: @dtran.dtt_qty, dtt_rsn: @dtran.dtt_rsn, stock_id: @dtran.stock_id, stock_id: @dtran.stock_id, transaksi_id: @dtran.transaksi_id, transaksi_id: @dtran.transaksi_id } }
     end
 
     assert_redirected_to dtran_url(Dtran.last)
@@ -34,7 +34,7 @@ class DtransControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update dtran" do
-    patch dtran_url(@dtran), params: { dtran: { belongs_to: @dtran.belongs_to, dta_qty: @dtran.dta_qty, dtd_qty: @dtran.dtd_qty, dtd_rsn: @dtran.dtd_rsn, dtt_qty: @dtran.dtt_qty, dtt_rsn: @dtran.dtt_rsn, stock_id: @dtran.stock_id, transaksi_id: @dtran.transaksi_id } }
+    patch dtran_url(@dtran), params: { dtran: { dta_qty: @dtran.dta_qty, dtd_qty: @dtran.dtd_qty, dtd_rsn: @dtran.dtd_rsn, dtt_qty: @dtran.dtt_qty, dtt_rsn: @dtran.dtt_rsn, stock_id: @dtran.stock_id, stock_id: @dtran.stock_id, transaksi_id: @dtran.transaksi_id, transaksi_id: @dtran.transaksi_id } }
     assert_redirected_to dtran_url(@dtran)
   end
 

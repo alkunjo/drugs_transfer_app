@@ -1,5 +1,5 @@
 class SafetyStocksController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_safety_stock, only: [:del, :destroy]
   before_action :set_safety_stocks, only: [:index, :create, :destroy, :new]
   before_action :set_ss_periods, only: [:index, :create, :destroy, :new]

@@ -1,4 +1,4 @@
-<div class="container" style="max-width:400px; margin:15px">
+<div class="container" style="max-width:600px; margin:15px">
 <%= form_for([@dtran.transaksi, @dtran], remote: true) do |f| %>
   <% if @dtran.errors.any? %>
     <div id="error_explanation">
@@ -15,7 +15,7 @@
   <div class="row">
     <div class="col-sm-4">
       <%= f.label :obat %>
-      <%= f.autocomplete_field :obat_name, autocomplete_obat_obat_name_transaksi_dtrans_path, {class: "form-control"} %>
+      <%= f.autocomplete_field :obat_name, autocomplete_obat_obat_name_transaksi_dtrans_path(transaksi_id: @dtran.transaksi.transaksi_id), {class: "form-control"} %>
     </div>
     <div class="col-sm-4">
       <%= f.label :kuantitas %><br>

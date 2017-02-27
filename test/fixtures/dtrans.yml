@@ -8,7 +8,8 @@ one:
   dtt_qty: 1
   dtd_rsn: MyString
   dtt_rsn: MyString
-  belongs_to: 
+  stock: one
+  transaksi: one
 
 two:
   stock_id: 1
@@ -18,4 +19,5 @@ two:
   dtt_qty: 1
   dtd_rsn: MyString
   dtt_rsn: MyString
-  belongs_to: 
+  stock: two
+  transaksi: two

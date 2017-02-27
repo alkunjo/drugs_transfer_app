@@ -1,5 +1,5 @@
 class StocksController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   autocomplete :outlet, :outlet_name, full: true
   autocomplete :obat, :obat_name, full: true
   before_action :set_stock, only: [:show, :edit, :update, :destroy, :del]

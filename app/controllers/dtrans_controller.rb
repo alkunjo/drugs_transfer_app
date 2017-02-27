@@ -1,5 +1,5 @@
 class DtransController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_transaksi, only: [:index, :new, :create, :edit, :update, :destroy]
   #before_action :set_obats, only: [:index, :new]
   autocomplete :obat, :obat_name, full: true
@@ -7,13 +7,13 @@ class DtransController < ApplicationController
   def index
     @transaksi = Transaksi.find(params[:transaksi_id])
     @dtrans = @transaksi.dtrans.present?
-    @dtran = @transaksi.dtrans.find(params[:id])
+    # @dtran = @transaksi.dtrans.find(params[:id])
   end
 
   def new
     transaksi = Transaksi.find(params[:transaksi_id])
     @dtrans = transaksi.dtrans.present?
-    @dtran = transaksi.dtrans.build
+    # @dtran = transaksi.dtrans.build
 
     respond_to do |format|
       format.js {render action: 'new'}
@@ -24,24 +24,25 @@ class DtransController < ApplicationController
     dtran = Dtran.new(dtran_params)
     transaksi = Transaksi.find(params[:transaksi_id])
     obat = Obat.find_by_obat_name(dtran.obat_name)
-    exist = Dtran.where(transaksi_id: transaksi.transaksi_id, obat_id: obat.obat_id).first
+    stok = Stock.find_by(outlet_id: current_user.outlet_id, obat_id: obat.obat_id)
+    exist = Dtran.where(transaksi_id: transaksi.transaksi_id, stock_id: stok.stock_id).first
     if exist
-      exist.update_attribute(:dta_qty, (exist.dta_qty + dtran.dta_qty))
-      if exist.save
-        respond_to do |format|
-          format.js {render "save_ask"}
-        end
-      end
+    	exist.update_attribute(:dta_qty, (exist.dta_qty + dtran.dta_qty))
+	    if exist.save
+    		respond_to do |format|
+	        format.js {render "save_ask"}
+	      end
+	    end
     else
-      @dtran = @transaksi.dtrans.create(dta_qty: dtran.dta_qty, obat_id: obat.obat_id, transaksi_id: transaksi.transaksi_id)
+	    @dtran = @transaksi.dtrans.create(dta_qty: dtran.dta_qty, stock_id: stok.stock_id, transaksi_id: transaksi.transaksi_id)
 
-      respond_to do |format|
-        if @dtran.save
-          format.js {render "save_ask"}
-        else
-          format.js {render "new"}
-        end
-      end
+	    respond_to do |format|
+	      if @dtran.save
+	        format.js {render "save_ask"}
+	      else
+	        format.js {render "new"}
+	      end
+	    end
     end
   end
 

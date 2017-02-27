@@ -1,5 +1,5 @@
 class OutletsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_outlet, only: [:show, :edit, :update, :destroy, :del]
   before_action :set_outlets, only: [:index, :new, :create, :update, :edit, :destroy, :del]
   before_action :set_otypes, only: [:new, :create, :edit, :update, :index]

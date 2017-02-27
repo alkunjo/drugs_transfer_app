@@ -1,12 +1,13 @@
 class Transaksi < ApplicationRecord
-	include PublicActivity::Model
-  tracked only: [:creaete, :validate_ask, :validate_drop, :validate_accept], owner: ->(controller, model) {controller && controller.current_user}
+  include PublicActivity::Model
+  tracked only: [:create, :validate_ask, :validate_drop, :validate_accept], owner: ->(controller, model) {controller && controller.current_user}
 
-  self.primary_key = "transaksi_id"
-  belongs_to :sender, class_name: "Outlet"
-  belongs_to :receiver, class_name: "Outlet"
+  self.primary_key = 'transaksi_id'
+  belongs_to :sender, class_name: 'Outlet'
+  belongs_to :receiver, class_name: 'Outlet'
   has_many :dtrans, dependent: :destroy
-  attr_accessor :outlet_name, :sender_name, :receiver_name
+  # accepts_nested_attributes_for :dtrans
+  has_many :stocks, through: :dtrans
 
   def status
   	if self.trans_status.nil?
@@ -51,4 +52,5 @@ class Transaksi < ApplicationRecord
   		return false
   	end
   end
+  
 end

@@ -17,7 +17,7 @@ class TransaksisControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transaksi" do
     assert_difference('Transaksi.count') do
-      post transaksis_url, params: { transaksi: { accepted_at: @transaksi.accepted_at, asked_at: @transaksi.asked_at, dropped_at: @transaksi.dropped_at, receiver_id: @transaksi.receiver_id, sender_id: @transaksi.sender_id, trans_status: @transaksi.trans_status } }
+      post transaksis_url, params: { transaksi: { accepted_at: @transaksi.accepted_at, asked_at: @transaksi.asked_at, dropped_at: @transaksi.dropped_at, receiver_id: @transaksi.receiver_id, receiver_id: @transaksi.receiver_id, sender_id: @transaksi.sender_id, sender_id: @transaksi.sender_id, trans_status: @transaksi.trans_status } }
     end
 
     assert_redirected_to transaksi_url(Transaksi.last)
@@ -34,7 +34,7 @@ class TransaksisControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update transaksi" do
-    patch transaksi_url(@transaksi), params: { transaksi: { accepted_at: @transaksi.accepted_at, asked_at: @transaksi.asked_at, dropped_at: @transaksi.dropped_at, receiver_id: @transaksi.receiver_id, sender_id: @transaksi.sender_id, trans_status: @transaksi.trans_status } }
+    patch transaksi_url(@transaksi), params: { transaksi: { accepted_at: @transaksi.accepted_at, asked_at: @transaksi.asked_at, dropped_at: @transaksi.dropped_at, receiver_id: @transaksi.receiver_id, receiver_id: @transaksi.receiver_id, sender_id: @transaksi.sender_id, sender_id: @transaksi.sender_id, trans_status: @transaksi.trans_status } }
     assert_redirected_to transaksi_url(@transaksi)
   end
 
