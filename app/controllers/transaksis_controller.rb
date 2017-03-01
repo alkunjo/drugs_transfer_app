@@ -25,7 +25,7 @@ class TransaksisController < ApplicationController
 
   # ini buat index permintaan, dropping dan penerimaan obat
   def ask
-    @transaksi = Transaksi.new
+    @transaksi = Transaksi.find_by(sender_id: current_user.outlet_id, trans_status: nil)
   end
 
   def drop  	
@@ -253,8 +253,8 @@ class TransaksisController < ApplicationController
   # ini digunakan untuk memvalidasi fungsi (update status transaksi aja sebenernya)
   def validate_ask
     if @transaksi.dtrans.exists?
-      penerima = Outlet.find(@transaksi.receiver_id)      
-      @transaksi.update_attributes(:trans_status => 1, :asked_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"))
+      penerima = Outlet.find_by(outlet_id: params[:receiver_id])
+      @transaksi.update_attributes(:trans_status => 1, :asked_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"), :receiver_id => penerima.outlet_id)
       @transaksi.create_activity action: 'validate_ask', owner: current_user, recipient: penerima
       respond_to do |format|
         return new
@@ -377,7 +377,7 @@ class TransaksisController < ApplicationController
     @dtran = Dtran.new(transaksi_id: @transaksi.transaksi_id)
     # DtransController.new
     respond_to do |format|
-      format.js {render "add_task"}
+      format.js {render "add_ask"}
     end
   end
 
@@ -412,11 +412,16 @@ class TransaksisController < ApplicationController
         break
       end
     end
+    # flash.now[:success] = "Dropping obat berhasil ditambahkan"
     if cek_stok == 1
-      logger.debug "Outlet yang memungkinkan ditemukan di #{Outlet.find_by(outlet_id: destination).outlet_name}"
+      flash.now[:success] = "Outlet #{Outlet.find_by(outlet_id: destination).outlet_name} memungkinkan untuk diminta. #{view_context.link_to('Validasi Permintaan', validate_ask_transaksi_path(id: @transaksi.transaksi_id, receiver_id: destination), remote: true, class: 'btn btn-md btn-primary') }".html_safe
     else
-      logger.debug "Mohon maaf stok obat tidak ditemukan"
+      flash.now[:danger] = "Mohon maaf, tidak ditemukan obat yang dicari."
     end    
+
+    respond_to do |format|
+      format.js {render 'avail'}
+    end
 
   end
 
