@@ -12,6 +12,8 @@ module TransaksisHelper
 			else 
 				return link_to("Buat Permintaan Obat", add_ask_transaksis_path(sender_id: current_user.outlet.outlet_id), method: :post, remote: true, class: "btn btn-md btn-success")
 			end
+		else
+			return link_to("Buat Permintaan Obat", add_ask_transaksis_path(sender_id: current_user.outlet.outlet_id), method: :post, remote: true, class: "btn btn-md btn-success")
 		end
 	end
 

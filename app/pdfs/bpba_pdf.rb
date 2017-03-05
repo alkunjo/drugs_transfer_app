@@ -30,9 +30,9 @@ class BpbaPdf < Prawn::Document
 		move_down 3
 		font_size(12) {text "Ke Apotek: #{receiver.outlet_name}", align: :center}
 		move_down 3
-		font_size(12) {text "Nomor BPBA: B#{sid}#{rid}#{@transaksi.created_at.strftime("%d%m%Y")}", align: :center}
+		font_size(12) {text "Nomor BPBA: B#{sid}#{rid}#{@transaksi.asked_at.strftime("%d%m%Y")}", align: :center}
 		move_down 3
-		font_size(12) {text "Tanggal   : #{@transaksi.created_at.strftime("%d/%m/%Y")}", align: :center}
+		font_size(12) {text "Tanggal   : #{@transaksi.asked_at.strftime("%d/%m/%Y")}", align: :center}
 		move_down 10
 	end
 
@@ -53,12 +53,13 @@ class BpbaPdf < Prawn::Document
 		[["No.","Nama Obat", "Jumlah", "Hrg Satuan", "Jml Permintaan"]]+
 		@transaksi.dtrans.map do |dtran|
 			numb = numb + 1
-			total = total + dtran.dta_qty*Obat.find(dtran.obat_id).obat_hpp
+			obat = dtran.stock.obat
+			total = total + dtran.dta_qty*obat.obat_hpp
 			[numb, 
-			 Obat.find(dtran.obat_id).obat_name, 
-			 "#{dtran.dta_qty} #{Kemasan.find(Obat.find(dtran.obat_id).kemasan_id).kemasan_unit} @#{Kemasan.find(Obat.find(dtran.obat_id).kemasan_id).kemasan_cap}",
-			 to_rupiah(Obat.find(dtran.obat_id).obat_hpp),
-			 to_rupiah(dtran.dta_qty*Obat.find(dtran.obat_id).obat_hpp)]
+			 obat.obat_name, 
+			 "#{dtran.dta_qty}",
+			 to_rupiah(obat.obat_hpp),
+			 to_rupiah(dtran.dta_qty*obat.obat_hpp)]
 		end+
 		[[{:content => "Total", :colspan => 4},to_rupiah(total)]]
 	end

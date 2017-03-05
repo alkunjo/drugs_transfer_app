@@ -32,7 +32,7 @@ class	DropPdf < Prawn::Document
 		move_down 3
 		font_size(12) {text "Tahun Dropping: #{@transaksi.dropped_at.strftime("%Y")}    Tahun BPBA: #{@transaksi.asked_at.strftime("%Y")} ", align: :center}
 		move_down 3
-		font_size(12) {text "Nomor Dropping: D#{rid}#{sid}#{@transaksi.dropped_at.strftime("%d%m%Y")} Nomor BPBA: B#{sid}#{rid}#{@transaksi.created_at.strftime("%d%m%Y")}", align: :center}
+		font_size(12) {text "Nomor Dropping: D#{rid}#{sid}#{@transaksi.dropped_at.strftime("%d%m%Y")} Nomor BPBA: B#{sid}#{rid}#{@transaksi.asked_at.strftime("%d%m%Y")}", align: :center}
 		move_down 3
 		font_size(12) {text "Tanggal   : #{@transaksi.dropped_at.strftime("%d/%m/%Y")}", align: :center}
 		move_down 10

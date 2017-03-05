@@ -26,6 +26,9 @@ class TransaksisController < ApplicationController
   # ini buat index permintaan, dropping dan penerimaan obat
   def ask
     @transaksi = Transaksi.find_by(sender_id: current_user.outlet_id, trans_status: nil)
+    respond_to do |format|
+      format.html {render "ask"}
+    end
   end
 
   def drop  	
@@ -63,9 +66,9 @@ class TransaksisController < ApplicationController
   # ini digunakan untuk build report view
   def report_ask
     if current_user.admin?
-      @bulan = Transaksi.select("distinct CONCAT_WS(' ', MONTHNAME(created_at), YEAR(created_at)) as bulan")
+      @bulan = Transaksi.select("distinct CONCAT_WS(' ', MONTHNAME(asked_at), YEAR(asked_at)) as bulan")
     elsif current_user.pengadaan?
-      @bulan = Transaksi.select("distinct CONCAT_WS(' ', MONTHNAME(created_at), YEAR(created_at)) as bulan").where("sender_id = '#{current_user.outlet_id}' ")
+      @bulan = Transaksi.select("distinct CONCAT_WS(' ', MONTHNAME(asked_at), YEAR(asked_at)) as bulan").where("sender_id = '#{current_user.outlet_id}' ")
     end
     respond_to do |format|
       format.html {render "report_ask"}
@@ -106,8 +109,8 @@ class TransaksisController < ApplicationController
 
     @cek = Transaksi
     .where("sender_id = '#{@sender.outlet_id}'")
-    .where("MONTHNAME(created_at) = '#{@month}'")
-    .where("YEAR(created_at) = '#{@year}'")
+    .where("MONTHNAME(asked_at) = '#{@month}'")
+    .where("YEAR(asked_at) = '#{@year}'")
     .where(trans_status: [1,2,3])
     
     # cek transaksi
@@ -205,7 +208,7 @@ class TransaksisController < ApplicationController
       format.pdf do 
         pdf = BpbaPdf.new(@transaksi)
         # pdf = Prawn::Document.new
-        send_data pdf.render, filename: "B#{sender}#{receiver}#{@transaksi.created_at.strftime("%d%m%Y")}.pdf", type: "application/pdf", disposition: "inline"
+        send_data pdf.render, filename: "B#{sender}#{receiver}#{@transaksi.asked_at.strftime("%d%m%Y")}.pdf", type: "application/pdf", disposition: "inline"
       end
     end
   end
@@ -407,7 +410,7 @@ class TransaksisController < ApplicationController
         end
       end
 
-      if cek_stok = 1 # if stock is available assign the destination_id and stop the destination loop
+      if cek_stok == 1 # if stock is available assign the destination_id and stop the destination loop
         destination = lokasi.destination_id
         break
       end

@@ -66,7 +66,7 @@ class	LapaskPdf < Prawn::Document
 	    grand_total = grand_total + total
 
 			[numb, 
-			 "B#{sid}#{rid}#{transaksi.created_at.strftime("%d%m%Y")}", 
+			 "B#{sid}#{rid}#{transaksi.asked_at.strftime("%d%m%Y")}", 
 			 Outlet.find(transaksi.receiver_id).outlet_name,
 			 to_rupiah(total),
 			 ""]

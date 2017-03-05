@@ -26,11 +26,11 @@ class	AcceptPdf < Prawn::Document
 		move_down 3
 		font_size(10) {text "#{sender.outlet_city}"}
 		move_down 15		
-		font_size(13) {text "BUKTI PENERIMAAN BARANG", align: :center, style: :bold}
+		font_size(13) {text "NOTA PENERIMAAN BARANG", align: :center, style: :bold}
 		move_down 3
 		font_size(12) {text "Terima dari: Apotek #{receiver.outlet_name}", align: :center}
 		move_down 3
-		font_size(12) {text "Nomor BPBA: B#{sid}#{sid}#{@transaksi.created_at.strftime("%d%m%Y")}   Nomor Penerimaan: T#{sid}#{sid}#{@transaksi.accepted_at.strftime("%d%m%Y")}", align: :center}
+		font_size(12) {text "Nomor BPBA: B#{sid}#{sid}#{@transaksi.asked_at.strftime("%d%m%Y")}   Nomor Penerimaan: T#{sid}#{sid}#{@transaksi.accepted_at.strftime("%d%m%Y")}", align: :center}
 		move_down 3
 		font_size(12) {text "Tanggal   : #{@transaksi.accepted_at.strftime("%d/%m/%Y")}", align: :center}
 		move_down 10
