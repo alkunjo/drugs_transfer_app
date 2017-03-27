@@ -2,6 +2,7 @@ class SafetyStock < ApplicationRecord
 	self.primary_key = :ss_period_id, :stock_id
 	belongs_to :ss_period, class_name: "SsPeriod"
 	belongs_to :stock, class_name: "Stock"
+	has_one :obat, through: :stock
 	attr_accessor :ss_period_id, :stock_id
 
 	def self.to_csv(options = {})

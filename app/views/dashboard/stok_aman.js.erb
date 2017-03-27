@@ -1,0 +1,4 @@
+$("#stock_name").html("<i>Safety Stock<i/> <%= j @obat_name %>")
+$("#chart_ss").html("<%= j pie_chart @safety_stocks, legend: false, colors: @colors %>")
+$("#form_ss").html("<%= j render 'form_ss' %>")
+$("")

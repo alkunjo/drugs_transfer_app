@@ -52,10 +52,12 @@ gem 'roo-xls'
 gem 'spreadsheet'
 gem 'will_paginate-bootstrap'
 gem 'seed_dump'
-gem 'chartist-rails'
 gem 'ransack'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
+gem 'faker'
+gem 'chartkick'
+
 # gem 'week_of_month'
 
 # Use Capistrano for deployment

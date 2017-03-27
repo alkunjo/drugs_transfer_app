@@ -27,6 +27,10 @@
 	font-family: 'Pacifico-Regular';
 }
 
+#transfer_tag{
+  font-size: 15px;
+}
+
 #loginBox {
 	background-color: #eceef1; 
 	max-width: 350px; 
@@ -42,4 +46,13 @@
 }
 .form-control .ui-autocomplete-input{
   z-index: 1100
+}
+
+#safety_stock{
+  border:1px solid;
+  border-color: #e9e9ec;
+  border-radius: 5px; 
+  padding: 25px 25px 25px 25px;
+  margin: 15px 15px 15px 15px;
+  background-color: #fcfcfc;
 }

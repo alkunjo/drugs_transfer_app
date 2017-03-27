@@ -51,7 +51,7 @@ GEM
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (1.16.0)
-    chartist-rails (0.9.7)
+    chartkick (2.2.3)
     climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -72,6 +72,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.7.0)
+    faker (1.7.3)
+      i18n (~> 0.5)
     ffi (1.9.17)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
@@ -258,9 +260,10 @@ DEPENDENCIES
   bootstrap-table-rails
   byebug
   cancancan
-  chartist-rails
+  chartkick
   coffee-rails (~> 4.2)
   devise
+  faker
   font-awesome-sass
   iconv
   jbuilder (~> 2.5)

@@ -37,8 +37,7 @@ Rails.application.routes.draw do
       get :report_drop_control
       post :report_accept_control
       get :report_accept_control
-      post :add_ask
-      
+      post :add_ask      
     end
   end
 
@@ -58,7 +57,15 @@ Rails.application.routes.draw do
   resources :roles
   resources :outlet_types
 
-  resources :dashboard
+  resources :dashboard do
+    collection do
+      get :coba
+      get :autocomplete_obat_obat_name
+      post :data_safety_stok
+      post :ss_on_obat
+    end
+  end
+
   root to: "dashboard#index"  
 
   devise_for :users

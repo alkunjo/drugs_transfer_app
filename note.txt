@@ -11,3 +11,40 @@ Command Note:
 Trial:
 - Use some outlets that is small or new that has some surrounding near outlets 
 - like kalibokor(26) - ngagel(11), pandugo(17) - rungkut(22) - kendangsari(10), gwalk(19) - klampis(21) - lontar(25) - darmo indah(24)
+
+
+Konten Dashboard disesuaikan dengan pengguna sistem:
+- Admin dan Manager punya tampilan dashboard yang sama, yang bedain cuma semua outlet dan outlet manager saja. isinya:
+	- jumlah permintaan, pemberian, penerimaan obat (ringkasan) (V)
+	- item obat yang diminta, diberi dan diterima
+	- ringkasan transfer obat yang sesuai dengan pemberian dan penerimaan (berapa yang diberi sesuai dengan permintaan, berapa yang diterima sesuai dengan yg diberi)
+	- daftar safety stock tiap obat tiap outlet
+	- notifikasi transfer obat
+
+Dashboard Transaksi Permintaan:
+- jumlah permintaan, 
+- total item obat diminta, 
+- jumlah obat yang diminta berdasarkan tipe kemasan, berdasarkan permintaan obat
+- safety stock sesuai dengan nama obat yang dicari bentuk grafik obat
+- jumlah obat sesuai kemasannya (pie chart)
+	
+Dashboard Transaksi Dropping
+- ringkasan transfer dropping (berapa yang diberi sesuai dengan permintaan)
+- notifikasi permintaan obat
+- ringkasan transfer obat sesuai dengan status tahapan
+
+
+Dashboard Transaksi Penerimaan
+- ringkasan transfer penerimaan (berapa yang diterima sesuai dengan yg diberi)
+- notifikasi dropping obat
+- ringkasan transfer obat sesuai dengan status tahapan
+
+SELECT count(*) as jml,
+	CASE trans_status 
+    	WHEN 1 THEN 'Permintaan Tervalidasi' 
+        WHEN 2 THEN 'Dropping Tervalidasi' 
+        WHEN 3 THEN 'Dropping Diterima' 
+        ELSE 'Belum Tervalidasi' 
+    END AS 'status' 
+FROM transaksis
+GROUP BY status

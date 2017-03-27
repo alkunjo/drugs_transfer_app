@@ -1,0 +1,27 @@
+<div class="row">
+
+<!-- 
+Konten Dashboard disesuaikan dengan pengguna sistem:
+- Admin dan Manager punya tampilan dashboard yang sama, yang bedain cuma semua outlet dan outlet manager saja. isinya:
+	- jumlah permintaan, pemberian, penerimaan obat (ringkasan)
+	- item obat yang diminta, diberi dan diterima
+	- ringkasan transfer obat yang sesuai dengan pemberian dan penerimaan
+	- daftar safety stock tiap obat tiap outlet
+	- notifikasi transfer obat
+
+Daftar Transaksi Permintaan 
+		 (jumlah permintaan, total item obat diminta, 
+		 jumlah obat yang diminta berdasarkan tipe kemasan, berdasarkan permintaan obat)
+		-->
+
+	<div class="col-md-6" id="safety_stock" align="center">
+		<label id="stock_name" style="font-size: 20px"><i>Safety Stock</i> <%= @obat_name %></label>
+		<div class="row" id="chart_ss">
+			# <%= pie_chart @safety_stocks, legend: false, colors: @colors %>
+		</div>
+		<div class="row" id="form_ss" style="margin-top: 20px">
+			<%= render 'form_ss' %>		
+		</div>
+	</div>
+
+</div>

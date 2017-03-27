@@ -273,7 +273,7 @@ class TransaksisController < ApplicationController
       @dtrans = @transaksi.dtrans
       @dtrans.each do |dtran|
         # update stok
-        stok = Stock.where(outlet_id: current_user.outlet_id).where(obat_id: dtran.obat_id).first
+        stok = Stock.where(outlet_id: current_user.outlet_id).where(obat_id: dtran.stock.obat_id).first
         minta = dtran.dtd_qty.nil? ? 0 : dtran.dtd_qty
         hasil = stok.stok_qty - minta
         stok.update_attribute(:stok_qty, hasil)
@@ -301,7 +301,7 @@ class TransaksisController < ApplicationController
       @tran.create_activity action: 'validate_accept', owner: current_user, recipient: penerima
       @dtrans = @tran.dtrans
       @dtrans.each do |dtran|
-        @stok = Stock.where(outlet_id: @tran.sender_id, obat_id: dtran.obat_id).first
+        @stok = Stock.where(outlet_id: @tran.sender_id, obat_id: dtran.stock.obat_id).first
         trima = dtran.dtt_qty.present? ? dtran.dtt_qty : 0        
         stok = @stok.stok_qty + trima
         @stok.update_attributes(:stok_qty => stok, :updated_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"))

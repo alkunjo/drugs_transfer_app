@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-5 text-right">
+                  <div class="huge"><%= @trans_ask_count %></div>
+                  <div id="transfer_tag">Transaksi Permintaan</div>
+                </div>
+                <div class="col-xs-2" style="margin-top: 5px"><i class="fa fa-medkit fa-3x"></i></div>
+                <div class="col-xs-2" style="padding-left:25px"><i class="fa fa-arrow-circle-up fa-1x"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-green">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-5 text-right">
+                  <div class="huge"><%= @trans_drop_count %></div>
+                  <div id="transfer_tag">Transaksi Dropping</div>
+                </div>
+                <div class="col-xs-2" style="margin-top: 5px"><i class="fa fa-medkit fa-3x"></i></div>
+                <div class="col-xs-2" style="padding-left:25px"><i class="fa fa-arrow-circle-down fa-1x"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-yellow">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-5 text-right">
+                  <div class="huge"><%= @trans_acc_count %></div>
+                  <div id="transfer_tag">Transaksi Penerimaan</div>
+                </div>
+                <div class="col-xs-2" style="margin-top: 5px"><i class="fa fa-medkit fa-3x"></i></div>
+                <div class="col-xs-2" style="padding-left:25px"><i class="fa fa-compress fa-1x"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        
+      </div>
+    </div>
+    
+    <div class="col-lg-6">
+      <%= pie_chart @transaksi_ask, donut: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= pie_chart @safety_stocks, donut: true, colors: @color26 %>
+    </div>
+  </div>
+</div>
