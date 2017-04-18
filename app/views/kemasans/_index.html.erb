@@ -1,0 +1,8 @@
+<% @kemasans.each do |kemasan| %>
+  <tr>
+  	<td><%= kemasan.kemasan_name %></td>
+  	<td style="text-align:center">
+    	<%= link_to edit_kemasan_path(kemasan), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
+    	<%= link_to del_kemasan_path(kemasan), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
+  </tr>
+<% end %>

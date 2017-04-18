@@ -23,7 +23,7 @@
           <%= f.label :periode, class: "control-label" %><br>
         </div>
         <div class="col-md-3">
-          <%= f.collection_select :ss_period_id, @ss_periods, :id, :week_period, {prompt: "Pilih satu"}, {class: "form-control"} %>
+          <%= f.collection_select :ss_period_id, @ss_periods, :id, :month_period, {prompt: "Pilih satu"}, {class: "form-control"} %>
         </div>
         <div class="col-md-1" style="padding-top: 8px">
           <%= f.submit (f.object.new_record? ? "Tambah" : "Ubah"), class: "btn btn-sm btn-primary" %>

@@ -1,0 +1,3 @@
+$('#bentukModal').modal('show');
+$('#bentukModal .modal-title').html("Hapus Bentuk Obat");
+$('#bentukModal .modal-isi').html("<%= escape_javascript( render partial: 'bentuks/del' )%>");

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :indications
+  resources :bentuks
+  resources :kemasans
   resources :transaksis do
     resources :dtrans do
       get :autocomplete_obat_obat_name, on: :collection
@@ -82,4 +85,7 @@ Rails.application.routes.draw do
   get 'stocks/:id/del' => 'stocks#del', as: :del_stock
   get 'ss_periods/:id/del' => 'ss_periods#del', as: :del_ss_period
   get 'safety_stocks/:id/del' => 'safety_stocks#del', as: :del_safety_stock
+  get 'bentuks/:id/del' => 'bentuks#del', as: :del_bentuk
+  get 'kemasans/:id/del' => 'kemasans#del', as: :del_kemasan
+  get 'indications/:id/del' => 'indications#del', as: :del_indication
 end

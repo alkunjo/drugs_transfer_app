@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
 		# @transaksi_ask = Transaksi.select("count(transaksi_id) as jumlah").group("trans_status")
 		transaksi
 		data_safety_stok
+		
 	end
 
 	def coba
@@ -24,13 +25,14 @@ class DashboardController < ApplicationController
 	end
 
 	def data_safety_stok
-		@obat_name = params[:obat_name].nil? ? 'ACARBOSE 50MG' : params[:obat_name]
+		@obat_name = params[:obat_name].present? ? params[:obat_name] : 'ACARBOSE 50MG'
 		sql = "
 			SELECT outlets.outlet_name, stocks.current_ss
 			FROM outlets JOIN stocks ON outlets.outlet_id = stocks.outlet_id
 			JOIN obats ON stocks.obat_id = obats.obat_id
 			WHERE obats.obat_name = '#{@obat_name}'"
 		@safety_stocks = ActiveRecord::Base.connection.execute(sql)
+		logger.debug "#{@safety_stocks}"
 		@color26 = random_color(26)
 		if params[:obat_name].present?
 			respond_to do |format|

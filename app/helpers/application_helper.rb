@@ -1,36 +1,44 @@
 module ApplicationHelper
 	def current_path
 		if controller_name == "outlets" 
-			return "Master Outlet"
+			return '<a class="navbar-brand" href="#">Master Outlet</a>'.html_safe
 		elsif controller_name == "outlet_types" 
-			return "Master Tipe Outlet"
+			return '<a class="navbar-brand" href="#">Master Tipe Outlet</a>'.html_safe
 		elsif controller_name == "distances" 
-			return "Master Jarak Antar Outlet"
+			return '<a class="navbar-brand" href="#">Master Jarak Antar Outlet</a>'.html_safe
 		elsif controller_name == "users" 
-			return "Master Pengguna"
+			return '<a class="navbar-brand" href="#">Master Pengguna</a>'.html_safe
 		elsif controller_name == "roles"
-			return "Master Peran Pengguna"
+			return '<a class="navbar-brand" href="#">Master Peran Pengguna</a>'.html_safe
 		elsif controller_name == "obats" 
-			return "Master Obat"
+			return '<a class="navbar-brand" href="#">Master Obat &nbsp;&nbsp;|</a> <a class="navbar-brand" href="/stocks">Master Stok Obat</a>'.html_safe
 		elsif controller_name == "stocks" 
-			return "Master Stok Obat"
+			return '<a class="navbar-brand" href="#">Master Stok Obat &nbsp;&nbsp;|</a> <a class="navbar-brand" href="/obats">Master Obat</a>'.html_safe
 		elsif controller_name == "safety_stocks" 
-			return "Perhitungan Safety Stock Obat"
+			return '<a class="navbar-brand" href="#">Perhitungan Safety Stock Obat</a>'.html_safe
 		elsif controller_name == "ss_periods"
-			return "Master Periode Safety Stock"
+			return '<a class="navbar-brand" href="#">Master Periode</a>'.html_safe
 		elsif controller_name == "transaksis"
 			if current_page?(controller: 'transaksis', action: 'ask')
-				return "Transaksi Permintaan Obat"
+				return '<a class="navbar-brand" href="#">Transaksi Permintaan Obat</a>'.html_safe
 			elsif current_page?(controller: 'transaksis', action: 'drop')
-				return "Transaksi Dropping Obat"
+				return '<a class="navbar-brand" href="#">Transaksi Dropping Obat</a>'.html_safe
 			elsif current_page?(controller: 'transaksis', action: 'accept')
-				return "Transaksi Penerimaan Obat"
+				return '<a class="navbar-brand" href="#">Transaksi Penerimaan Obat</a>'.html_safe
 			elsif current_page?(controller: 'transaksis', action: 'report_ask')
-				return "Laporan Bulanan Permintaan Obat"
+				return '<a class="navbar-brand" href="#">Laporan Bulanan Permintaan Obat</a>'.html_safe
 			elsif current_page?(controller: 'transaksis', action: 'report_drop')
-				return "Laporan Bulanan Dropping Obat"
+				return '<a class="navbar-brand" href="#">Laporan Bulanan Dropping Obat</a>'.html_safe
 			elsif current_page?(controller: 'transaksis', action: 'report_accept')
-				return "Laporan Bulanan Penerimaan Obat"
+				return '<a class="navbar-brand" href="#">Laporan Bulanan Penerimaan Obat</a>'.html_safe
+			end
+		elsif controller_name == "dashboard"
+			if current_user.admin? or current_user.manager?
+				return '<a class="navbar-brand" href="#">Halaman Dashboard Administrator</a>'.html_safe
+			elsif current_user.pengadaan?
+				return '<a class="navbar-brand" href="#">Halaman Dashboard PIC Pengadaan</a>'.html_safe
+			elsif current_user.gudang
+				return '<a class="navbar-brand" href="#">Halaman Dashboard PIC Gudang</a>'.html_safe
 			end
 		end
 	end

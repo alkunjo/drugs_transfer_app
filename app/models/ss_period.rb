@@ -52,4 +52,8 @@ class SsPeriod < ApplicationRecord
 	def week_period
 		"Minggu ke-#{week} #{period}"
 	end
+
+	def month_period
+		"Bulan #{ss_period_period.strftime('%B')} #{ss_period_period.strftime('%Y')}"
+	end
 end

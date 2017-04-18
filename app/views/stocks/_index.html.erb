@@ -2,7 +2,7 @@
   <tr>
   	<td><%= stock.obat.obat_name %></td>
   	<td><%= stock.outlet.outlet_name %></td>
-  	<td><%= stock.stok_qty %></td>
+  	<td><%= stock.stok_qty %> <%= stock.obat.kemasan.kemasan_name %></td>
   	<td><%= stock.current_ss %></td>
   	<td>
     	<%= link_to edit_stock_path(stock), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>

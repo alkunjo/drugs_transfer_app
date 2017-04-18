@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225115658) do
+ActiveRecord::Schema.define(version: 20170415151649) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "trackable_type"
@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(version: 20170225115658) do
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
     t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+  end
+
+  create_table "bentuks", primary_key: "bentuk_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "bentuk_name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "distances", primary_key: ["origin_id", "destination_id"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -48,11 +54,30 @@ ActiveRecord::Schema.define(version: 20170225115658) do
     t.string  "dtt_rsn"
   end
 
+  create_table "indications", primary_key: "indication_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "indication_name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "kemasans", primary_key: "kemasan_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "kemasan_kode"
+    t.string   "kemasan_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "obats", primary_key: "obat_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "obat_name"
     t.integer  "obat_hpp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "kemasan_id"
+    t.integer  "bentuk_id"
+    t.integer  "indication_id"
+    t.index ["bentuk_id"], name: "fk_rails_e496e91834", using: :btree
+    t.index ["indication_id"], name: "fk_rails_461ef4225c", using: :btree
+    t.index ["kemasan_id"], name: "fk_rails_4854e80013", using: :btree
   end
 
   create_table "outlet_types", primary_key: "otype_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -108,7 +133,7 @@ ActiveRecord::Schema.define(version: 20170225115658) do
     t.index ["outlet_id"], name: "fk_stocks_outlets1_idx", using: :btree
   end
 
-  create_table "transaksis", primary_key: "transaksi_id", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "transaksis", primary_key: "transaksi_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "trans_status"
@@ -144,6 +169,9 @@ ActiveRecord::Schema.define(version: 20170225115658) do
 
   add_foreign_key "distances", "outlets", column: "destination_id", primary_key: "outlet_id", name: "fk_distances_outlets2"
   add_foreign_key "distances", "outlets", column: "origin_id", primary_key: "outlet_id", name: "fk_distances_outlets1"
+  add_foreign_key "obats", "bentuks", primary_key: "bentuk_id"
+  add_foreign_key "obats", "indications", primary_key: "indication_id"
+  add_foreign_key "obats", "kemasans", primary_key: "kemasan_id"
   add_foreign_key "outlets", "outlet_types", column: "otype_id", primary_key: "otype_id", name: "fk_outlets_outlet_types1"
   add_foreign_key "safety_stocks", "ss_periods", primary_key: "ss_period_id", name: "fk_safety_stocks_ss_periods1"
   add_foreign_key "safety_stocks", "stocks", primary_key: "stock_id", name: "fk_safety_stocks_stocks1"

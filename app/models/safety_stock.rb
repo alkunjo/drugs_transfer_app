@@ -45,54 +45,39 @@ class SafetyStock < ApplicationRecord
 		  	periode = periode + 1
 		  	kebutal = kebutal + spreadsheet.cell(i,c)
 		  end
-		  logger.debug "Periode: #{periode}"
-		  logger.debug "Kebutal: #{kebutal}"
+		  # logger.debug "Periode: #{periode}"
+		  # logger.debug "Kebutal: #{kebutal}"
 
 		  # 2. calculate rabut
 		  rabut = kebutal / periode
-		  logger.debug "Rabut: #{rabut}"
+		  # logger.debug "Rabut: #{rabut}"
 
 		  # 3. kurangi tiap kebutuhan dengan rabut sekaligus hitung keburat dan ditotal
 		  (2..spreadsheet.last_column).each do |c|
 		  	keburat = keburat + ((spreadsheet.cell(i,c)-rabut)**2)
 		  end
-		  logger.debug "Keburat: #{keburat}"
+		  # logger.debug "Keburat: #{keburat}"
 
 		  # 4. calculate stardev
 		  periode = periode - 1
 		  stardev = (keburat/periode)**(0.5)
-		  logger.debug "Stardev: #{stardev}"
+		  # logger.debug "Stardev: #{stardev}"
 
 		  # 5. calculate safety_stock
 		  safety_stock = saftor * stardev
 		  safety_stock = safety_stock.round
-		  logger.debug "Safety Stock: #{safety_stock}"
+		  # logger.debug "Safety Stock: #{safety_stock}"
 
 		  # 6. take stock_id
 		  stock_id = spreadsheet.cell(i,1)
-		  logger.debug "Stock ID: #{stock_id.to_i}"
+		  # logger.debug "Stock ID: #{stock_id.to_i}"
 
 		  # 7. take ss_period_id
-		  logger.debug "ss_period_id: #{week_periode}"
+		  # logger.debug "ss_period_id: #{week_periode}"
 
 		  # 8. save to safetystock
 		  sql = "INSERT INTO safety_stocks(`ss_period_id`, `stock_id`, `safety_stock_qty`, `created_at`, `updated_at`) VALUES('#{week_periode}','#{stock_id.to_i}','#{safety_stock}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}')"
 		  ActiveRecord::Base.connection.execute(sql)
-
-		  # ss = SafetyStock.new(safety_stock_qty: safety_stock)
-		  # ss_period = SsPeriod.find_by(ss_period_id: week_periode)
-		  # stock = Stock.find_by(stock_id: stock_id)
-		  # safetystock = ss_period.safety_stocks.create(ss_period_id: ss_period.ss_period_id, stock_id: stock.stock_id, safety_stock_qty: ss.safety_stock_qty)
-		  # safetystock.save
-		  # safetystock = SafetyStock.find_by(ss_period_id: week_periode, stock_id: stock_id)
-		  # if safetystock.blank?
-	  	# safetystock = SafetyStock.create(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
-		  # end
-		  # safetystock.save!
-			# safetystock = SafetyStock.create(ss_period_id: 1, stock_id: 1, safety_stock_qty: safety_stock)
-			# safetystock = SafetyStock.create([{ss_period_id: week_periode},{stock_id: stock_id},{safety_stock_qty: safety_stock}])
-			# safetystock = SafetyStock.new(ss_period_id: week_periode, stock_id: stock_id, safety_stock_qty: safety_stock)
-			# safetystock.save!
 
 		  # 9. update current_ss on stock_tables
 		  stock = Stock.find_by(stock_id: stock_id)

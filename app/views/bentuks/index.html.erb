@@ -1,0 +1,23 @@
+<% if notice %>
+<div class="alert alert-warning alert-dismissible" bentuk="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <%= notice %>
+</div>
+<% end %>
+
+<div id="form" style="padding: 0px 50px 0px 50px">
+  <%= render 'form' %>
+</div>
+
+<table class="table table-striped table-bordered" data-toggle="table" style="max-width: 1050px">
+  <thead>
+    <tr align="center">
+      <th style="text-align:center" data-sortable="true">Bentuk Obat</th>
+      <th colspan="2" style="text-align:center">Aksi</th>
+    </tr>
+  </thead>
+
+  <tbody id="tabelBentuk" class="isiBentuk">
+    <%= render 'index' %>
+  </tbody>
+</table>

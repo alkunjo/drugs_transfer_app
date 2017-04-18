@@ -1,0 +1,3 @@
+$(".isiBentuk").html("<%= escape_javascript(render 'index') %>")
+$("#bentukModal").modal("hide")
+$('#form').html("<%= escape_javascript(render action: :new, partial: 'form') %>")
