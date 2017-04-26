@@ -6,12 +6,8 @@ module TransaksisHelper
 	end
 
 	def buttonSwitch(transaksi)
-		if transaksi.present?			
-			if transaksi.dtrans.present?
-				return link_to("Cek Ketersediaan Obat", cek_availability_transaksis_path(transaksi_id: @transaksi.transaksi_id), class: "btn btn-md btn-primary", remote: true)
-			else 
-				return link_to("Buat Permintaan Obat", add_ask_transaksis_path(sender_id: current_user.outlet.outlet_id), method: :post, remote: true, class: "btn btn-md btn-success")
-			end
+		if transaksi.present? and transaksi.dtrans.present? and (controller.action_name == 'add_ask' or controller.action_name == 'create' or controller.action_name == 'destroy')
+			return link_to("Cek Ketersediaan Obat", cek_availability_transaksis_path(transaksi_id: @transaksi.transaksi_id), class: "btn btn-md btn-primary", remote: true)
 		else
 			return link_to("Buat Permintaan Obat", add_ask_transaksis_path(sender_id: current_user.outlet.outlet_id), method: :post, remote: true, class: "btn btn-md btn-success")
 		end

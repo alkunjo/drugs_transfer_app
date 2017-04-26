@@ -1,0 +1,11 @@
+<% @dtrans.each do |dtran| %>
+  <tr>
+    <td align="center"><%= dtran.stock.obat.obat_name %></td>
+    <td align="center"><%= dtran.dtd_qty %> <%= dtran.stock.obat.kemasan.kemasan_name %></td>
+  	<td align="center" id="dtd_<%= dtran.stock_id %>"><%= dtran.dtt_qty %> <%= dtran.stock.obat.kemasan.kemasan_name %></td>
+    <td align="center" id="edit_<%= dtran.stock_id %>" style="width:300px">
+      <%= link_to 'Ubah', edit_obat_in_path(dtran), class: "btn btn-sm btn-success", remote: true %>
+    </td>
+  </tr>
+<% end %>
+<!-- .nil? ? dtran.dtd_qty : (dtran.dtt_qty.nil? ? 0: dtran.dtt_qty) -->

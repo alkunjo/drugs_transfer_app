@@ -1,0 +1,4 @@
+<div class="col-md-4"><b>Apotek Pemberi: <%= @tran.receiver.outlet_name %></b></div>
+<div class="col-md-3"><b>Tanggal: <%= Transaksi.find(@tran).dropped_at.strftime('%d-%B-%Y %H:%M') %></b></div>
+<div class="col-md-2"><%= link_to 'Terima Obat', validate_accept_transaksi_path(@tran), class: "btn btn-sm btn-primary" %></div>
+<br/><br/>

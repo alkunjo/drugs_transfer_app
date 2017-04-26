@@ -1,0 +1,12 @@
+<% if current_user.pengadaan? %>
+<a href="/transaksis/ask" class="list-group-item" style="background-color: rgba(177,207,233,0.8); color: #000">
+<% else %>
+<a href="/transaksis/drop" class="list-group-item" style="background-color: rgba(177,207,233,0.8); color: #000">
+<% end %>
+<i class="fa fa-arrow-circle-up fa-fw">
+</i>&nbsp;&nbsp;<b><%= User.find(activity.owner).user_name %></b> dari <b>Apotek <%= Outlet.find(activity.trackable.sender_id).outlet_name %></b> 
+telah memvalidasi permintaan obat ke <b>Apotek <%= Outlet.find(activity.trackable.receiver_id).outlet_name %></b>
+<span class="pull-right text-muted-small">
+	<em><%= activity.trackable.asked_at.strftime("%d %B %Y") %></em>
+</span>
+</a>

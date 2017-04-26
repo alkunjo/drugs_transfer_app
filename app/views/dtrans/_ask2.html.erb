@@ -1,7 +1,7 @@
 <% @transaksi.dtrans.each do |dtran| %>
 	<tr>
   	<td><%= obat(dtran.stock_id) %></td>
-    <td><%= dtran.dta_qty %></td>
+    <td><%= dtran.dta_qty %> <%= dtran.stock.obat.kemasan.kemasan_name %></td>
     <% if @transaksi.unvalidated? %>
     <td><%= link_to [dtran.transaksi, dtran], method: :delete, :class => "btn btn-danger btn-sm", remote: true do %><span class="fa fa-trash-o"></span> Hapus<% end %></td>
     <% end %>

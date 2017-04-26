@@ -5,22 +5,17 @@ class Dtran < ApplicationRecord
   attr_accessor :obat_name
 
   def enough?
-  	trans = Transaksi.where(transaksi_id: self.transaksi_id).first
-  	stok = Stock.where(obat_id: self.obat_id, outlet_id: trans.receiver_id).first
-  	obat = Obat.where(obat_id: self.obat_id).first
-  	if (stok.stok_qty - self.dta_qty) < obat.obat_minStock
-  		return false
-  	else
-  		return true
-  	end
+  	obat_id = self.stock.obat.obat_id
+    stok = Stock.find_by(obat_id: self.stock.obat.obat_id, outlet_id: self.transaksi.receiver_id)
+    if (stok.stok_qty - self.dta_qty) < stok.current_ss
+      return false
+    else
+      return true
+    end
   end
 
   def stok
-  	trans = Transaksi.where(transaksi_id: self.transaksi_id).first
-  	stok = Stock.where(obat_id: self.obat_id, outlet_id: trans.receiver_id).first
+    stok = Stock.find_by(obat_id: self.stock.obat.obat_id, outlet_id: self.transaksi.receiver_id)
   	return stok.stok_qty
-  end
-
-  def enoughs?
   end
 end

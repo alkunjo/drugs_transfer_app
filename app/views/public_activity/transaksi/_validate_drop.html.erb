@@ -1,0 +1,8 @@
+<a href="/transaksis/accept" class="list-group-item" style="background-color: rgba(191,215,116,0.7); color: #000">
+<i class="fa fa-arrow-circle-down fa-fw">
+</i>&nbsp;&nbsp;<b><%= User.find(activity.owner).user_name %></b> dari <b>Apotek <%= Outlet.find(activity.trackable.receiver_id).outlet_name %></b> 
+telah memvalidasi dropping obat <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ke <b>Apotek <%= Outlet.find(activity.trackable.sender_id).outlet_name %></b>
+<span class="pull-right text-muted-small">
+	<em><%= activity.trackable.dropped_at.strftime("%d %B %Y") %></em>
+</span>
+</a>

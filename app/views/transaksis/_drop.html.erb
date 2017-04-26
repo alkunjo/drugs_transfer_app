@@ -10,7 +10,7 @@
         <%= Outlet.find(transaksi.sender_id).outlet_name %>
       <% end %>
     </td>
-  	<td><%= transaksi.created_at.strftime('%d-%B-%Y %H:%M') %></td>
+  	<td><%= transaksi.asked_at.strftime('%d-%B-%Y %H:%M') %></td>
   	<td>
   		<%= transaksi.status %> 
   	</td>

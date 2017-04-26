@@ -1,6 +1,6 @@
 class Transaksi < ApplicationRecord
   include PublicActivity::Model
-  tracked only: [:create, :validate_ask, :validate_drop, :validate_accept], owner: ->(controller, model) {controller && controller.current_user}
+  tracked only: [:create, :validate_ask, :validate_drop, :validate_accept, :add_ask], owner: ->(controller, model) {controller && controller.current_user}
 
   self.primary_key = 'transaksi_id'
   belongs_to :sender, class_name: 'Outlet'
@@ -51,6 +51,14 @@ class Transaksi < ApplicationRecord
   	else
   		return false
   	end
+  end
+
+  def receiver
+    return Outlet.find_by(outlet_id: self.receiver_id)
+  end
+
+  def sender
+    return Outlet.find_by(outlet_id: self.sender_id)
   end
   
 end

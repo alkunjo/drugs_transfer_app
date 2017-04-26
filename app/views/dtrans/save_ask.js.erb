@@ -1,4 +1,7 @@
 $("#dtransDiv").html("<%= j render partial: 'dtrans/ask' %>")
-$('#dta_form').html("<%= j render partial: 'dtrans/form' %>")
+console.log("<%= j render partial: 'form' %>")
+console.log("<%= @dtran %>")
+$('#dta_form').html("<%= j render partial: 'form' %>")
 $('#dta_tbl').html("<%= j render partial: 'dtrans/ask2' %>")
 $("#topAskLink").html("<%= j buttonSwitch(@transaksi) %>")
+$('#quantity').val("")

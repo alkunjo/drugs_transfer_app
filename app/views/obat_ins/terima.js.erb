@@ -1,0 +1,6 @@
+$("#headTerima").html("<tr>" +
+          "<th style='text-align:center'>Nama Obat</th>" + 
+          "<th style='text-align:center'>Jumlah Terima</th>" +
+          "<th style='text-align:center'>Aksi</th>" +
+        "</tr>")
+$("#tabelTerima").html("<%= escape_javascript( render 'obat_ins/trima_table' ) %>")

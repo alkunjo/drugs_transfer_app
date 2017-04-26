@@ -20,19 +20,78 @@ class SafetyStock < ApplicationRecord
 	  # ignore header
 	  header = spreadsheet.row(1)
 
+	  # cara 1
 	  # hitung per baris
+	  # (2..spreadsheet.last_row).each do |i|
+
+		 #  # 0. initiate variabel
+		 #  #		 - periode
+		 #  # 	 - kebutuhan total  (kebutal)
+		 #  # 	 - rata-rata kebutuhan (rabut)
+		 #  # 	 - (kebutuhan - rata-rata)^2 (keburat)
+		 #  # 	 - standar deviasi (stardev)
+		 #  # 	 - safety stock (safety_stock)
+		 #  # 	 - safety factor (saftor)
+
+		 #  periode = 0
+		 #  kebutal = 0
+		 #  rabut = 0.0
+		 #  keburat = 0.0
+		 #  stardev = 0.0
+		 #  safety_stock = 0.0
+		 #  saftor = 1.65
+
+		 #  # 1. calculate kebutal
+		 #  (2..spreadsheet.last_column).each do |c|
+		 #  	periode = periode + 1
+		 #  	kebutal = kebutal + spreadsheet.cell(i,c)
+		 #  end
+		 #  # logger.debug "Periode: #{periode}"
+		 #  # logger.debug "Kebutal: #{kebutal}"
+
+		 #  # 2. calculate rabut
+		 #  rabut = kebutal / periode
+		 #  # logger.debug "Rabut: #{rabut}"
+
+		 #  # 3. kurangi tiap kebutuhan dengan rabut sekaligus hitung keburat dan ditotal
+		 #  (2..spreadsheet.last_column).each do |c|
+		 #  	keburat = keburat + ((spreadsheet.cell(i,c)-rabut)**2)
+		 #  end
+		 #  # logger.debug "Keburat: #{keburat}"
+
+		 #  # 4. calculate stardev
+		 #  periode = periode - 1
+		 #  stardev = (keburat/periode)**(0.5)
+		 #  # logger.debug "Stardev: #{stardev}"
+
+		 #  # 5. calculate safety_stock
+		 #  safety_stock = saftor * stardev
+		 #  safety_stock = safety_stock.round
+		 #  # logger.debug "Safety Stock: #{safety_stock}"
+
+		 #  # 6. take stock_id
+		 #  stock_id = spreadsheet.cell(i,1)
+		 #  # logger.debug "Stock ID: #{stock_id.to_i}"
+
+		 #  # 7. take ss_period_id
+		 #  # logger.debug "ss_period_id: #{week_periode}"
+
+		 #  # 8. save to safetystock
+		 #  sql = "INSERT INTO safety_stocks(`ss_period_id`, `stock_id`, `safety_stock_qty`, `created_at`, `updated_at`) VALUES('#{week_periode}','#{stock_id.to_i}','#{safety_stock}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}')"
+		 #  ActiveRecord::Base.connection.execute(sql)
+
+		 #  # 9. update current_ss on stock_tables
+		 #  stock = Stock.find_by(stock_id: stock_id)
+		 #  stock.update_attribute(:current_ss, safety_stock)
+		 #  stock.save!
+	  
+	  # end
+
+	  # cara 2
+	  sqlinsert = "INSERT INTO safety_stocks(`ss_period_id`,`stock_id`,`safety_stock_qty`,`created_at`,`updated_at`) VALUES "
+	  sqlupdate = "UPDATE stocks SET current_ss = (case "
 	  (2..spreadsheet.last_row).each do |i|
-
-		  # 0. initiate variabel
-		  #		 - periode
-		  # 	 - kebutuhan total  (kebutal)
-		  # 	 - rata-rata kebutuhan (rabut)
-		  # 	 - (kebutuhan - rata-rata)^2 (keburat)
-		  # 	 - standar deviasi (stardev)
-		  # 	 - safety stock (safety_stock)
-		  # 	 - safety factor (saftor)
-
-		  periode = 0
+  	  periode = 0
 		  kebutal = 0
 		  rabut = 0.0
 		  keburat = 0.0
@@ -45,46 +104,45 @@ class SafetyStock < ApplicationRecord
 		  	periode = periode + 1
 		  	kebutal = kebutal + spreadsheet.cell(i,c)
 		  end
-		  # logger.debug "Periode: #{periode}"
-		  # logger.debug "Kebutal: #{kebutal}"
 
 		  # 2. calculate rabut
 		  rabut = kebutal / periode
-		  # logger.debug "Rabut: #{rabut}"
 
 		  # 3. kurangi tiap kebutuhan dengan rabut sekaligus hitung keburat dan ditotal
 		  (2..spreadsheet.last_column).each do |c|
 		  	keburat = keburat + ((spreadsheet.cell(i,c)-rabut)**2)
 		  end
-		  # logger.debug "Keburat: #{keburat}"
 
 		  # 4. calculate stardev
 		  periode = periode - 1
 		  stardev = (keburat/periode)**(0.5)
-		  # logger.debug "Stardev: #{stardev}"
 
 		  # 5. calculate safety_stock
 		  safety_stock = saftor * stardev
 		  safety_stock = safety_stock.round
-		  # logger.debug "Safety Stock: #{safety_stock}"
 
 		  # 6. take stock_id
 		  stock_id = spreadsheet.cell(i,1)
-		  # logger.debug "Stock ID: #{stock_id.to_i}"
 
-		  # 7. take ss_period_id
-		  # logger.debug "ss_period_id: #{week_periode}"
+	  	sqlinsert = sqlinsert + "('#{week_periode}','#{stock_id.to_i}','#{safety_stock}', '#{DateTime.now.strftime('%Y-%m-%d %H:%M:%S')}', '#{DateTime.now.strftime('%Y-%m-%d %H:%M:%S')}'), "
+			sqlupdate = sqlupdate + "WHEN stock_id = #{stock_id.to_i} THEN #{safety_stock} "	  	
+	  	if (i-1)%100 == 0
+	  		sqlinsert = sqlinsert[0..-3]
+	  		# mass insert query
+		 		ActiveRecord::Base.connection.execute(sqlinsert)
 
-		  # 8. save to safetystock
-		  sql = "INSERT INTO safety_stocks(`ss_period_id`, `stock_id`, `safety_stock_qty`, `created_at`, `updated_at`) VALUES('#{week_periode}','#{stock_id.to_i}','#{safety_stock}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}', '#{DateTime.now.strftime("%Y-%m-%d %H:%M:%S")}')"
-		  ActiveRecord::Base.connection.execute(sql)
-
-		  # 9. update current_ss on stock_tables
-		  stock = Stock.find_by(stock_id: stock_id)
-		  stock.update_attribute(:current_ss, safety_stock)
-		  stock.save!
-	  
-	  end
+	  		# reset insert query
+	  		sqlinsert = "INSERT INTO safety_stocks(`ss_period_id`,`stock_id`,`safety_stock_qty`,`created_at`,`updated_at`) VALUES "
+	  	end
+	  end																																																																										
+		
+		# final insert query
+		sqlinsert = sqlinsert[0..-3]
+ 		ActiveRecord::Base.connection.execute(sqlinsert)
+ 		
+ 		# final update query
+ 		sqlupdate = sqlupdate + "end)"
+ 		ActiveRecord::Base.connection.execute(sqlupdate)
 	end
 
 	def self.open_spreadsheet(file)

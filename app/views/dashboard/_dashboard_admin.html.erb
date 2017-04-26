@@ -15,5 +15,8 @@
     </div>
   </div>
   <div class="row">
+    # <% @activities.order('created_at DESC').each do |activity| %>
+      # <%= render_activity activity %>
+    # <% end %>
   </div>
 </div>

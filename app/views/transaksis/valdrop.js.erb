@@ -1,6 +1,7 @@
+$('#transModal').modal('hide');
 $('#kpModal').modal({backdrop: 'static', keyboard: false}) 
 $("#kpModal").modal("show")
 $("#kpModal .modal-title").html("Konfirmasi Dropping Obat")
-$("#kpModal .modal-isi").html("<%= escape_javascript(render partial: 'confirm') %>")
+$("#kpModal .modal-isi").html("<%= escape_javascript(render partial: 'confirm') %> <br>")
 $("#kpModal .modal-footer").html('<%= escape_javascript (link_to "Ya", validate_drop_transaksi_path(@transaksi), class: "btn btn-sm btn-primary", remote: true) %>'+
 		' <button class="btn btn-sm btn-default" data-dismiss="modal">Batal</button>')

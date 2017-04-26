@@ -57,7 +57,7 @@ class BpbaPdf < Prawn::Document
 			total = total + dtran.dta_qty*obat.obat_hpp
 			[numb, 
 			 obat.obat_name, 
-			 "#{dtran.dta_qty}",
+			 "#{dtran.dta_qty} #{dtran.stock.obat.kemasan.kemasan_name}",
 			 to_rupiah(obat.obat_hpp),
 			 to_rupiah(dtran.dta_qty*obat.obat_hpp)]
 		end+

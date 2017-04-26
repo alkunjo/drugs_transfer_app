@@ -1,4 +1,4 @@
-<div class="container" style="max-width:400px">
+<div class="container" style="max-width:300px">
 <%= form_for([@dtran.transaksi, @dtran], remote: true) do |f| %>
   <% if @dtran.errors.any? %>
     <div id="error_explanation">
@@ -12,20 +12,24 @@
     </div>
   <% end %>
   <div class="row">
-    <div class="col-sm-4">
-      <%= f.label :kuantitas_beri %><br>
-      <%= f.text_field :dtd_qty, class: "form-control" %>
-    </div>
-    <div class="col-sm-3">
-      <%= f.label :alasan %>
-      <%= f.text_field :dt_rsn, class: "form-control" %>
-    </div>
-    <div class="col-sm-2" style="margin-top:25px;margin-right:10px">
-      <%= f.submit "Tambah", class: "btn btn-sm btn-primary" %>
-    </div>
-    <div class="col-sm-2" style="margin-top:25px">
-      <button class="btn btn-sm btn-danger" onclick="">Batal</button>
-    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= f.label :pemberian %><br>
+        <%= f.text_field :dtd_qty, {class: "form-control", required: true} %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.label :alasan %>
+        <%= f.text_field :dtd_rsn, class: "form-control" %>
+      </div>
+    </div>  
+    <div class="row">
+      <div class="col-sm-3" style="margin-top:25px;margin-right:10px">
+        <%= f.submit "Tambah", class: "btn btn-sm btn-primary" %>
+      </div>
+      <div class="col-sm-3" style="margin-top:25px">
+        <button class="btn btn-sm btn-danger" onclick="">Batal</button>
+      </div>
+    </div>  
   </div>
 <% end %>
 </div>

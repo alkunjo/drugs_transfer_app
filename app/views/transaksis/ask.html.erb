@@ -1,6 +1,8 @@
-<div class="alert alert-danger fade in" id="notice" hidden>
-  <a href="#" class="close" data-dismiss="alert" aria-label="close" id="close">&times;</a>
-</div>
+<% flash.each do |key, value| %>
+	<div class="alert alert-<%= key %>" style="color: #000">
+	  <button class="close" data-dismiss="alert" aria-label="close">&times;</button><%= value %>
+  </div>
+<% end %>
 <div id="topAskLink"><%= buttonSwitch(@transaksi) %></div>
 <div id="avail" style="margin: 10px 10px 10px 10px"></div>
 <div id="dtransDiv"></div>

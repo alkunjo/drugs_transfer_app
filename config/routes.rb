@@ -69,6 +69,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :obat_ins do
+    member do
+      get 'valter'
+    end
+    collection do
+      post 'kirim'
+    end
+  end
+
   root to: "dashboard#index"  
 
   devise_for :users

@@ -33,11 +33,11 @@ module ApplicationHelper
 				return '<a class="navbar-brand" href="#">Laporan Bulanan Penerimaan Obat</a>'.html_safe
 			end
 		elsif controller_name == "dashboard"
-			if current_user.admin? or current_user.manager?
+			if current_user.admin? or current_user.pimpinan?
 				return '<a class="navbar-brand" href="#">Halaman Dashboard Administrator</a>'.html_safe
 			elsif current_user.pengadaan?
 				return '<a class="navbar-brand" href="#">Halaman Dashboard PIC Pengadaan</a>'.html_safe
-			elsif current_user.gudang
+			elsif current_user.gudang?
 				return '<a class="navbar-brand" href="#">Halaman Dashboard PIC Gudang</a>'.html_safe
 			end
 		end

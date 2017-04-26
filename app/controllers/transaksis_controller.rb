@@ -3,9 +3,9 @@ class TransaksisController < ApplicationController
   before_action :authenticate_user!
   before_action :set_activities
   before_action :set_transaksi, only: [:edit, :update, :destroy, :del, :show_ask, :show_drop, :show_accept, :skrip_bpba, :skrip_drop, :validate_ask, :validate_drop]
-  before_action :set_transaksi_ask, only: [:index, :show_a]
-  before_action :set_transaksi_drop, only: [:index, :show_d]
-  before_action :set_transaksis, only: [:ask, :drop, :accept, :new, :create]
+  # before_action :set_transaksi_ask, only: [:index, :show_a]
+  # before_action :set_transaksi_drop, only: [:index, :show_d]
+  before_action :set_transaksis, only: [:ask, :drop, :accept, :new, :create, :validate_ask]
   autocomplete :outlet, :outlet_name, full: true
 
   def index
@@ -259,9 +259,11 @@ class TransaksisController < ApplicationController
       penerima = Outlet.find_by(outlet_id: params[:receiver_id])
       @transaksi.update_attributes(:trans_status => 1, :asked_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"), :receiver_id => penerima.outlet_id)
       @transaksi.create_activity action: 'validate_ask', owner: current_user, recipient: penerima
-      respond_to do |format|
-        return new
-      end
+      # respond_to do |format|
+      #   format.js {render "ask"}
+      # end
+      flash[:success] = "Permintaan Obat telah tervalidasi"
+      redirect_to transaksis_path, success: "Permintaan Obat telah tervalidasi"
     end
   end
 
@@ -301,7 +303,7 @@ class TransaksisController < ApplicationController
       @tran.create_activity action: 'validate_accept', owner: current_user, recipient: penerima
       @dtrans = @tran.dtrans
       @dtrans.each do |dtran|
-        @stok = Stock.where(outlet_id: @tran.sender_id, obat_id: dtran.stock.obat_id).first
+        @stok = Stock.where(outlet_id: @tran.receiver_id, obat_id: dtran.stock.obat_id).first
         trima = dtran.dtt_qty.present? ? dtran.dtt_qty : 0        
         stok = @stok.stok_qty + trima
         @stok.update_attributes(:stok_qty => stok, :updated_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"))
@@ -376,6 +378,10 @@ class TransaksisController < ApplicationController
   # tambah permintaan obat
   def add_ask
     @transaksi = Transaksi.find_or_create_by(sender_id: current_user.outlet_id, trans_status: nil)
+    if @transaksi.new_record?
+      penerima = Outlet.find_by(outlet_id: 1)
+      @transaksi.save!
+    end
     @dtrans = @transaksi.dtrans
     @dtran = Dtran.new(transaksi_id: @transaksi.transaksi_id)
     # DtransController.new
@@ -417,7 +423,7 @@ class TransaksisController < ApplicationController
     end
     # flash.now[:success] = "Dropping obat berhasil ditambahkan"
     if cek_stok == 1
-      flash.now[:success] = "Outlet #{Outlet.find_by(outlet_id: destination).outlet_name} memungkinkan untuk diminta. #{view_context.link_to('Validasi Permintaan', validate_ask_transaksi_path(id: @transaksi.transaksi_id, receiver_id: destination), remote: true, class: 'btn btn-md btn-primary') }".html_safe
+      flash.now[:success] = "Outlet #{Outlet.find_by(outlet_id: destination).outlet_name} memungkinkan untuk diminta. #{view_context.link_to('Validasi Permintaan', validate_ask_transaksi_path(id: @transaksi.transaksi_id, receiver_id: destination), class: 'btn btn-md btn-primary') }".html_safe
     else
       flash.now[:danger] = "Mohon maaf, tidak ditemukan obat yang dicari."
     end    
@@ -431,6 +437,7 @@ class TransaksisController < ApplicationController
   def edit
   end
 
+  # it is not used since we do it in different way
   def create
     @transaksi = Transaksi.new(transaksi_params)
     cek = Transaksi.where(receiver_id: @transaksi.receiver_id).where(trans_status: 2)
@@ -445,7 +452,6 @@ class TransaksisController < ApplicationController
         
       elsif current_user.pengadaan?
         @transaksi = Transaksi.create(sender_id: current_user.outlet_id, receiver_id: receiver.outlet_id)
-        @transaksi.create_activity action: 'create', owner: current_user, recipient: receiver
         respond_to do |format|
           if @transaksi
             return new
@@ -504,14 +510,14 @@ class TransaksisController < ApplicationController
       if current_user.admin?
         @transaksis = Transaksi.all
       elsif current_user.pengadaan?
-        @transaksis = Transaksi.where(sender_id: current_user.outlet_id).where.not(receiver_id: nil)
+        @transaksis = Transaksi.where(sender_id: current_user.outlet_id).where.not(receiver_id: nil).where.not(trans_status: nil)
       elsif current_user.gudang?
         @transaksis = Transaksi.where(receiver_id: current_user.outlet_id).where(trans_status: [1,2,3])
       end          
     end
 
     def transaksi_params
-      params.require(:transaksi).permit(:trans_status, :sender_id, :receiver_id, :sender_name, :receiver_name, :outlet_name)
+      params.require(:transaksi).permit(:trans_status, :sender_id, :receiver_id, :sender_name, :receiver_name, :outlet_name, :dtd_rsn, :dtt_rsn)
     end
 
     def set_activities

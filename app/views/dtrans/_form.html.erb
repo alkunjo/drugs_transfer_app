@@ -15,14 +15,14 @@
   <div class="row">
     <div class="col-sm-4">
       <%= f.label :obat %>
-      <%= f.autocomplete_field :obat_name, autocomplete_obat_obat_name_transaksi_dtrans_path(transaksi_id: @dtran.transaksi.transaksi_id), {class: "form-control"} %>
+      <%= f.autocomplete_field :obat_name, autocomplete_obat_obat_name_transaksi_dtrans_path(transaksi_id: @dtran.transaksi.transaksi_id), {class: "form-control", required: true} %>
     </div>
     <div class="col-sm-4">
       <%= f.label :kuantitas %><br>
-      <%= f.text_field :dta_qty, class: "form-control" %>
+      <%= f.text_field :dta_qty, {class: "form-control", id: "quantity", required: true} %>
     </div>
     <div class="col-sm-2" style="margin-top:25px">
-      <%= f.submit "Tambah", class: "btn btn-sm btn-primary" %>
+      <%= f.submit (f.object.new_record? ? "Tambah" : "Ubah"), class: "btn btn-sm btn-primary" %>
     </div>
   </div>
 <% end %>

@@ -1,8 +1,9 @@
 <% @dtrans.each do |dtran| %>
   <tr>
-    <td align="center"><%= Obat.find(dtran.obat_id).obat_name %></td>
-  	<td align="center" id="dtd_<%= dtran.obat_id %>"><%= dtran.dtt_qty %>&nbsp;<%= getKemasan(dtran.obat_id) %>@<%= getIsi(dtran.obat_id) %></td>
-    <td align="center" id="edit_<%= dtran.obat_id %>" style="width:300px">
+    <td align="center"><%= dtran.stock.obat.obat_name %></td>
+    <td align="center"><%= dtran.dtd_qty %>&nbsp;<%= dtran.stock.obat.kemasan.kemasan_name %></td>
+  	<td align="center" id="dtd_<%= dtran.stock_id %>"><%= dtran.dtt_qty %>&nbsp;<%= dtran.stock.obat.kemasan.kemasan_name %></td>
+    <td align="center" id="edit_<%= dtran.stock_id %>" style="width:300px">
     <% if dtran.transaksi.dropped? %>
       <%= link_to 'Ubah', edit_obat_in_path(dtran), class: "btn btn-sm btn-success", remote: true %>
     <% end %>
