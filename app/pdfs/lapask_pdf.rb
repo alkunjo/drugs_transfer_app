@@ -60,7 +60,7 @@ class	LapaskPdf < Prawn::Document
 
 	    total = 0
 	    transaksi.dtrans.map do |dtran|
-	    	total = total + (dtran.dta_qty*Obat.find(dtran.stock.obat_id).obat_hpp)
+	    	total = total + (dtran.dta_qty*dtran.stock.obat.obat_hpp)
 	    end
 
 	    grand_total = grand_total + total

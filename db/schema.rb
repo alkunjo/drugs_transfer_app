@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415151649) do
+ActiveRecord::Schema.define(version: 20170429081503) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "trackable_type"
@@ -65,6 +65,19 @@ ActiveRecord::Schema.define(version: 20170415151649) do
     t.string   "kemasan_name"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "owner_id"
+    t.integer "recipient_id"
+    t.string  "key_message"
+    t.boolean "readStat_receiver"
+    t.boolean "readStat_admin"
+    t.boolean "readStat_manager"
+    t.integer "transaksi_id"
+    t.index ["owner_id"], name: "index_notifications_on_owner_id", using: :btree
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id", using: :btree
+    t.index ["transaksi_id"], name: "fk_rails_86ba199701", using: :btree
   end
 
   create_table "obats", primary_key: "obat_id", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -169,6 +182,9 @@ ActiveRecord::Schema.define(version: 20170415151649) do
 
   add_foreign_key "distances", "outlets", column: "destination_id", primary_key: "outlet_id", name: "fk_distances_outlets2"
   add_foreign_key "distances", "outlets", column: "origin_id", primary_key: "outlet_id", name: "fk_distances_outlets1"
+  add_foreign_key "notifications", "outlets", column: "recipient_id", primary_key: "outlet_id"
+  add_foreign_key "notifications", "transaksis", primary_key: "transaksi_id"
+  add_foreign_key "notifications", "users", column: "owner_id", primary_key: "user_id"
   add_foreign_key "obats", "bentuks", primary_key: "bentuk_id"
   add_foreign_key "obats", "indications", primary_key: "indication_id"
   add_foreign_key "obats", "kemasans", primary_key: "kemasan_id"

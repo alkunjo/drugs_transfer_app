@@ -28,4 +28,8 @@ class User < ApplicationRecord
   def pimpinan?
     self.role.role_name == "Pimpinan Outlet"
   end
+
+  def not_admin?
+    self.role.role_name != "Super Admin"
+  end
 end

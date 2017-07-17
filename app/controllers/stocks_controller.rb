@@ -70,10 +70,12 @@ class StocksController < ApplicationController
     end
 
     def set_stocks
-      if current_user.admin?
-        @stocks = Stock.paginate(:page => params[:page], :per_page => 10)
-      else
-        @stocks = Stock.paginate(:page => params[:page], :per_page => 10).where(outlet_id: current_user.outlet.outlet_id)
+      if @stocks.nil?
+        if current_user.admin?
+          @stocks = Stock.all#paginate(:page => params[:page], :per_page => 10)
+        else
+          @stocks = Stock.where(outlet_id: current_user.outlet.outlet_id)#.paginate(:page => params[:page], :per_page => 10)
+        end
       end
     end
 

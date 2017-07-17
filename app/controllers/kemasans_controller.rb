@@ -28,16 +28,18 @@ class KemasansController < ApplicationController
 
     respond_to do |format|
       if @kemasan.save
+        flash.now[:success] = "Kemasan berhasil disimpan."
         return new
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @kemasan.update(kemasan_params)
-        return new
-      else
+    if @kemasan.update(kemasan_params)
+      return new
+    else
+      flash.now[:success] = "Kemasan berhasil diubah."
+      respond_to do |format|
         format.js {render 'edit'}
       end
     end

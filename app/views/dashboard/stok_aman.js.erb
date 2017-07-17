@@ -1,4 +1,3 @@
-$("#stock_name").html("<i>Safety Stock<i/> <%= j @obat_name %>")
-$("#chart_ss").html("<%= j pie_chart @safety_stocks, legend: false, colors: @colors %>")
+$("#stock_name").html("<i>Safety Stock</i> <%= j @obat.obat_name %> (<%= j @obat.kemasan.kemasan_name %>)")
+$("#chart_ss").html("<%= j line_chart @safety_stocks, height: '200px', width: '400px' %>")
 $("#form_ss").html("<%= j render 'form_ss' %>")
-$("")

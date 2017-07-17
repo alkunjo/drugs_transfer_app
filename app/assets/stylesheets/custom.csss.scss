@@ -56,3 +56,55 @@
   margin: 15px 15px 15px 15px;
   background-color: #fcfcfc;
 }
+
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
+  text-align: center;
+  background-color: #FFFFFF;
+}
+
+.card_nomid{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.08);
+  background-color: #FFFFFF;
+  padding: 10px 10px 10px 10px;
+}
+
+.stock_aman{
+  max-width: 450px;
+  padding: 10px 10px 10px 10px;
+}
+
+#form_ss{
+  padding-left: 60px;
+  padding-right: 50px;
+}
+
+.trans_status{
+  padding: 10px 10px 10px 10px; 
+}
+
+#dashboard{
+  overflow-y: scroll
+}
+
+.drugs_group{
+  padding: 10px 10px 10px 10px;  
+}
+
+.notif{
+  border: 1px solid;
+  border-color: #e9e9ec;
+  border-radius: 5px; 
+  padding: 5px 5px 5px 5px;  
+}
+
+#notifDiv{
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+#notifList{
+  padding: 10px 10px 10px 10px; 
+  overflow-y: scroll;
+  max-width: 700px;
+}

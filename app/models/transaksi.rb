@@ -1,6 +1,6 @@
 class Transaksi < ApplicationRecord
-  include PublicActivity::Model
-  tracked only: [:create, :validate_ask, :validate_drop, :validate_accept, :add_ask], owner: ->(controller, model) {controller && controller.current_user}
+  # include PublicActivity::Model
+  # tracked only: [:create, :validate_ask, :validate_drop, :validate_accept, :add_ask], owner: ->(controller, model) {controller && controller.current_user}
 
   self.primary_key = 'transaksi_id'
   belongs_to :sender, class_name: 'Outlet'
@@ -59,6 +59,10 @@ class Transaksi < ApplicationRecord
 
   def sender
     return Outlet.find_by(outlet_id: self.sender_id)
+  end
+
+  def notify(owner, key_message, recipient, transaksi_id)
+    Notification.create(owner_id: owner.owner_id, key_message: key_message, recipient_id: recipient.recipient_id, transaksi_id: transaksi_id)
   end
   
 end

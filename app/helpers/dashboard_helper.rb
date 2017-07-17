@@ -17,4 +17,17 @@ module DashboardHelper
 			render 'dashboard_drop'
 		end
 	end
+
+	# def ntf
+	# 	if current_user.admin?
+ #  		ceknotif = Notification.all.where(readStat_admin: nil).count()
+ #  	elsif current_user.pimpinan?
+ #  		ceknotif = Notification.where(recipient_id: current_user.outlet_id).where(readStat_manager: nil).count()
+ #  	else
+ #  		ceknotif = Notification.where(recipient_id: current_user.outlet_id).where(readStat_receiver: nil).count()
+ #  	end
+	# 	if ceknotif > 0
+	# 		return "<i class='fa fa-bell faa-bounce animated'></i>".html_safe
+	# 	end
+	# end
 end

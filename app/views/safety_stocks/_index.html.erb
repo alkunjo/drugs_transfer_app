@@ -1,6 +1,6 @@
 <% @safety_stocks.each do |safety_stock| %>
   <tr>
   	<td><%= safety_stock.stock.outlet.outlet_name %> <%= safety_stock.stock.obat.obat_name %></td>
-  	<td><%= safety_stock.safety_stock_qty %></td>
+  	<td><%= safety_stock.safety_stock_qty %> <%= safety_stock.stock.obat.kemasan.kemasan_name %></td>
   </tr>
 <% end %>

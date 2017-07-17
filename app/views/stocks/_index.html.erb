@@ -1,11 +1,15 @@
 <% @stocks.each do |stock| %>
   <tr>
   	<td><%= stock.obat.obat_name %></td>
+	<% if current_user.admin? %>
   	<td><%= stock.outlet.outlet_name %></td>
+  <% end %>
   	<td><%= stock.stok_qty %> <%= stock.obat.kemasan.kemasan_name %></td>
-  	<td><%= stock.current_ss %></td>
+  	<td><%= stock.current_ss %> <%= stock.obat.kemasan.kemasan_name %></td>
+	<% if current_user.admin? %>
   	<td>
     	<%= link_to edit_stock_path(stock), class: "btn btn-primary btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-edit"></span> Ubah<% end %>
     	<%= link_to del_stock_path(stock), class: "btn btn-danger btn-sm", remote: true, html:{style: "color:#FFFFFF"} do %><span class="fa fa-trash"></span> Hapus<% end %> </td>
+  <% end %>
   </tr>
 <% end %>

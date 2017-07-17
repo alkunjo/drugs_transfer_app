@@ -1,0 +1,7 @@
+<div class="row">	
+	<div class="col-md-6">
+		<% @notifications.each do |notification| %>
+		  <div class="notif"><%= make_link(notification) %></div>
+		<% end %>
+	</div>
+</div>

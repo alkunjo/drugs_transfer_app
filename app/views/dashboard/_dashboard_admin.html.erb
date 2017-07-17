@@ -1,22 +1,43 @@
-<div class="container-fluid">
+<div class="container-fluid" id="dashboardAdmin">
   <div class="row">
-    <div class="col-lg-6" style="background-color: #FFFFFF; padding: 10px 10px 10px 10px">
-      <h5 id="stock_name" align="center" style="font-weight: bold"><i>Safety Stock</i> <%= @obat_name %></h5>
-      <div class="row" id="chart_ss">
-        <%= pie_chart @safety_stocks, donut: true, colors: @colors %>
+    <div class="col-md-1"></div>
+    <div class="col-md-5 card stock_aman">
+      <h5 id="stock_name" align="center" style="font-weight: bold"><i>Safety Stock</i> <%= @obat.obat_name %> (<%= @obat.kemasan.kemasan_name %>)</h5>
+      <div class="row" id="chart_ss" align="center">
+        <%= line_chart @safety_stocks, height: "200px", width: "400px" %>
       </div>
-      <div class="row" id="form_ss" style="margin-top: 20px">
+      <div class="row" id="form_ss">
         <%= render 'form_ss' %>   
       </div>
     </div>
-    <div class="col-lg-6" style="background-color: #FFFFFF; padding: 10px 10px 10px 10px">
+    <div class="col-md-1"></div>
+    <div class="col-md-4 card trans_status">
       <h5 align="center"><b>Ringkasan Status Transaksi</b></h5>
-      <%= pie_chart @transaksi_ask, donut: true %>
+      <%= pie_chart [["Belum<br/>Tervalidasi".html_safe,@trans_nil_count],["Permintaan<br/>Tervalidasi".html_safe,@trans_ask_count],["Dropping<br/>Tervalidasi".html_safe,@trans_drop_count],["Penerimaan<br>Obat<br>Selesai".html_safe,@trans_acc_count]], height: "254px" %>
     </div>
+    <div class="col-md-1"></div>
   </div>
   <div class="row">
-    # <% @activities.order('created_at DESC').each do |activity| %>
-      # <%= render_activity activity %>
-    # <% end %>
+    <div class="col-md-1"></div>
+  <% if @transaksis.present? %>
+    <div class="col-md-10 card drugs_group">
+      <h5 align="center"><b>Kelompok Obat dalam Transaksi</b></h5>
+      <div class="row">
+        <div class="col-md-4 indikasi">
+          <i class="fa fa-medkit"></i> Indikasi Obat
+          <%= column_chart @indikasis %>
+        </div>
+        <div class="col-md-4 kemasan">
+          <i class="fa fa-cube"></i> Kemasan Obat
+          <%= column_chart @kemasans %>
+        </div>
+        <div class="col-md-4 bentuk">
+          <i class="fa fa-flask"></i> Bentuk Obat
+          <%= column_chart @bentuks %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+    <div class="col-md-1"></div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'notifications/index'
+
   resources :indications
   resources :bentuks
   resources :kemasans
@@ -41,6 +43,14 @@ Rails.application.routes.draw do
       post :report_accept_control
       get :report_accept_control
       post :add_ask      
+    end
+  end
+
+  resources :notifications do
+    member do 
+      post :adminRead
+      post :pimpinanRead
+      post :otherRead
     end
   end
 
@@ -97,4 +107,6 @@ Rails.application.routes.draw do
   get 'bentuks/:id/del' => 'bentuks#del', as: :del_bentuk
   get 'kemasans/:id/del' => 'kemasans#del', as: :del_kemasan
   get 'indications/:id/del' => 'indications#del', as: :del_indication
+
+  mount ActionCable.server => '/cable'
 end

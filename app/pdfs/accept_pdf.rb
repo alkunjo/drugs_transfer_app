@@ -53,12 +53,12 @@ class	AcceptPdf < Prawn::Document
 		[["No.","Nama Obat", "Jml Terima", "Hrg Satuan", "Total Harga"]]+
 		@transaksi.dtrans.map do |dtran|
 			numb = numb + 1
-			total = total + dtran.dtt_qty*Obat.find(dtran.obat_id).obat_hpp
+			total = total + dtran.dtt_qty*dtran.stock.obat.obat_hpp
 			[numb, 
-			 Obat.find(dtran.obat_id).obat_name, 
-			 "#{dtran.dtt_qty} #{Kemasan.find(Obat.find(dtran.obat_id).kemasan_id).kemasan_unit} @#{Kemasan.find(Obat.find(dtran.obat_id).kemasan_id).kemasan_cap}",
-			 to_rupiah(Obat.find(dtran.obat_id).obat_hpp),
-			 to_rupiah(dtran.dtt_qty*Obat.find(dtran.obat_id).obat_hpp)]
+			 dtran.stock.obat.obat_name, 
+			 "#{dtran.dtt_qty} #{dtran.stock.obat.kemasan.kemasan_name}",
+			 to_rupiah(dtran.stock.obat.obat_hpp),
+			 to_rupiah(dtran.dtt_qty*dtran.stock.obat.obat_hpp)]
 		end+
 		[[{:content => "Total", :colspan => 4},to_rupiah(total)]]
 

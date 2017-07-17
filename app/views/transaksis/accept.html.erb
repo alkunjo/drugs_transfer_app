@@ -21,7 +21,11 @@
           <th style="text-align:center">Nama Obat</th>
           <th style="text-align:center">Jumlah Dropping</th>
           <th style="text-align:center">Jumlah Terima</th>
-          <th style="text-align:center">Aksi</th>
+          <% if @tran.present? %>
+            <% if @tran.dropped? %>
+            <th style="text-align:center">Aksi</th>
+            <% end %>
+          <% end %>
         </tr>
       </thead>
 

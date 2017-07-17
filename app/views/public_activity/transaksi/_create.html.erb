@@ -1,8 +1,0 @@
-<a href="/transaksis/ask" class="list-group-item" style="background-color: rgba(255,236,130,0.8); color: #000" >
-<i class="fa fa-shopping-basket fa-fw">
-</i>&nbsp;&nbsp;<b><%= User.find(activity.owner).user_name %></b> dari <b>Apotek <%= Outlet.find(activity.trackable.sender_id).outlet_name %></b> 
-membuat permintaan obat ke <b>Apotek <%= Outlet.find(activity.trackable.receiver_id).outlet_name %></b>
-<span class="pull-right text-muted-small">
-	<em><%= activity.trackable.created_at.strftime("%d %B %Y") %></em>
-</span>
-</a>

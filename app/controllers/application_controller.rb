@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configured_permitted_parameters, if: :devise_controller?
-
   layout :layout_by_resource
-
+  before_action :notif
+  
   def layout_by_resource
     if devise_controller?
       "devise"
@@ -23,7 +23,15 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource)
-    return dashboard_index_path
+    if current_user.admin?
+      return dashboard_index_path
+    elsif current_user.pengadaan?
+      return ask_transaksis_path
+    elsif current_user.gudang?
+      return drop_transaksis
+    elsif current_user.pimpinan?
+      return dashboard_index_path
+    end
   end
   def after_sign_out_path_for(resource)
     return new_user_session_path
@@ -44,5 +52,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
+  def notif
+    if current_user.present?
+      if current_user.admin?
+        @notifications = Notification.all.reverse
+      else
+        @notifications = Notification.where(recipient_id: current_user.outlet_id).reverse
+      end
+    end
+  end
 end

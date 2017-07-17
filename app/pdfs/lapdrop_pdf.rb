@@ -60,7 +60,7 @@ class	LapdropPdf < Prawn::Document
 
 	    total = 0
 	    transaksi.dtrans.map do |dtran|
-	    	total = total + (dtran.dtd_qty*Obat.find(dtran.obat_id).obat_hpp)
+	    	total = total + (dtran.dtd_qty*dtran.stock.obat.obat_hpp)
 	    end
 
 	    grand_total = grand_total + total

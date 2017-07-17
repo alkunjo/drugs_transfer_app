@@ -60,13 +60,13 @@ class	LaptrimPdf < Prawn::Document
 
 	    total = 0
 	    transaksi.dtrans.map do |dtran|
-	    	total = total + (dtran.dta_qty*Obat.find(dtran.obat_id).obat_hpp)
+	    	total = total + (dtran.dta_qty*dtran.stock.obat.obat_hpp)
 	    end
 
 	    grand_total = grand_total + total
 
 			[numb, 
-			 "B#{sid}#{rid}#{transaksi.created_at.strftime("%d%m%Y")}", 
+			 "B#{sid}#{rid}#{transaksi.asked_at.strftime("%d%m%Y")}", 
 			 Outlet.find(transaksi.receiver_id).outlet_name,
 			 to_rupiah(total),
 			 ""]

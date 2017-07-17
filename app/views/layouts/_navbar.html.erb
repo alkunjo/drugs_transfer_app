@@ -18,19 +18,28 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li style="padding-top:19px;color:#6591CC">
-          </li>
-          <li style="padding-top:19px;color:#6591CC">
             <i class="fa fa-user fa-lg"></i>
             @<%= current_user.user_name %> | 
             <%= current_user.role.role_name %> <%= current_user.outlet.outlet_name %>
           </li>
+          
+          <li class="dropdown" id="notifDropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notifLink_<%= current_user.outlet_id %>">
+              <span id="ntf_<%= current_user.outlet_id %>"><%= ntf %></span>
+              <b class="caret"></b>
+              <span class="notification" id="notifCounter_<%= current_user.outlet_id %>"><%= counterNotif %></span>
+            </a>
+            <ul class="dropdown-menu" id="notifList_<%= current_user.outlet_id %>">
+              <%= render partial: 'notifications/index' %>
+            </ul>
+          </li>
+          
+
           <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
         <% else %>
           <li><%= link_to "Daftar", new_user_registration_path %></li>
           <li><%= link_to "Masuk", new_user_session_path %></li>
         <% end %>
-        <li></li>
-        <li></li>
       </ul>
     </div>
   </div>

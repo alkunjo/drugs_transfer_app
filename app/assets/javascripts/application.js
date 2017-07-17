@@ -23,4 +23,5 @@
 //= require turbolinks
 //= require highcharts
 //= require chartkick
+//= require jquery.transit.min
 //= require_tree .

@@ -3,10 +3,10 @@
     <td align="center"><%= dtran.stock.obat.obat_name %></td>
     <td align="center"><%= dtran.dtd_qty %>&nbsp;<%= dtran.stock.obat.kemasan.kemasan_name %></td>
   	<td align="center" id="dtd_<%= dtran.stock_id %>"><%= dtran.dtt_qty %>&nbsp;<%= dtran.stock.obat.kemasan.kemasan_name %></td>
-    <td align="center" id="edit_<%= dtran.stock_id %>" style="width:300px">
     <% if dtran.transaksi.dropped? %>
+    <td align="center" id="edit_<%= dtran.stock_id %>" style="width:300px">
       <%= link_to 'Ubah', edit_obat_in_path(dtran), class: "btn btn-sm btn-success", remote: true %>
-    <% end %>
     </td>
+    <% end %>
   </tr>
 <% end %>

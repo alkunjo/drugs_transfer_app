@@ -1,7 +1,7 @@
 class BentuksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_bentuk, only: [ :edit, :update, :destroy, :del]
-  before_action :set_bentuks, only: [:index, :new, :create, :update, :edit, :destroy, :del]
+  before_action :set_bentuks, only: [:index, :new, :create, :update, :edit, :destroy, :del] 
   
   def index
     @bentuk = Bentuk.new
@@ -63,4 +63,5 @@ class BentuksController < ApplicationController
     def bentuk_params
       params.require(:bentuk).permit(:bentuk_name)
     end
+
 end

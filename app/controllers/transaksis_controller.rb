@@ -1,7 +1,8 @@
 class TransaksisController < ApplicationController
   include TransaksisHelper
+  include NotificationsHelper
   before_action :authenticate_user!
-  before_action :set_activities
+  # before_action :set_activities
   before_action :set_transaksi, only: [:edit, :update, :destroy, :del, :show_ask, :show_drop, :show_accept, :skrip_bpba, :skrip_drop, :validate_ask, :validate_drop]
   # before_action :set_transaksi_ask, only: [:index, :show_a]
   # before_action :set_transaksi_drop, only: [:index, :show_d]
@@ -177,12 +178,10 @@ class TransaksisController < ApplicationController
     
     # cek transaksi
     if @cek.exists?
-      # render :js => "alert('#{@cek.count}');"
       respond_to do |format|
         format.js {render "report_accept", locals: {sender: @sender, month: @month, year: @year}}
         format.pdf do 
           pdf = LaptrimPdf.new(@cek, @sender, @month, @year)
-          # pdf = Prawn::Document.new
           send_data pdf.render, filename: "Laporan Dropping Obat #{@sender.outlet_name} #{@month} #{@year}.pdf", type: "application/pdf", disposition: "inline"
         end
       end
@@ -207,7 +206,6 @@ class TransaksisController < ApplicationController
     respond_to do |format|
       format.pdf do 
         pdf = BpbaPdf.new(@transaksi)
-        # pdf = Prawn::Document.new
         send_data pdf.render, filename: "B#{sender}#{receiver}#{@transaksi.asked_at.strftime("%d%m%Y")}.pdf", type: "application/pdf", disposition: "inline"
       end
     end
@@ -258,7 +256,8 @@ class TransaksisController < ApplicationController
     if @transaksi.dtrans.exists?
       penerima = Outlet.find_by(outlet_id: params[:receiver_id])
       @transaksi.update_attributes(:trans_status => 1, :asked_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"), :receiver_id => penerima.outlet_id)
-      @transaksi.create_activity action: 'validate_ask', owner: current_user, recipient: penerima
+      notify(current_user.user_id, 'asked', @transaksi.receiver_id, @transaksi.transaksi_id)
+      # @transaksi.create_activity action: 'validate_ask', owner: current_user, recipient: penerima
       # respond_to do |format|
       #   format.js {render "ask"}
       # end
@@ -271,7 +270,7 @@ class TransaksisController < ApplicationController
     @transaksi.update_attributes(:trans_status => 2, :dropped_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"))
     if @transaksi
       penerima = Outlet.find(@transaksi.sender_id)
-      @transaksi.create_activity action: 'validate_drop', owner: current_user, recipient: penerima
+      # @transaksi.create_activity action: 'validate_drop', owner: current_user, recipient: penerima
       @dtrans = @transaksi.dtrans
       @dtrans.each do |dtran|
         # update stok
@@ -283,6 +282,7 @@ class TransaksisController < ApplicationController
           dtran.update_attribute(:dtd_qty, 0)
         end
       end
+      notify(current_user.user_id, 'dropped', @transaksi.sender_id, @transaksi.transaksi_id)
       respond_to do |format|
         flash.now[:success] = "Validasi Dropping berhasil dilakukan"
         format.js {render "show_drop"}
@@ -300,7 +300,7 @@ class TransaksisController < ApplicationController
     @tran.update_attributes(:trans_status => 3, :accepted_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"))
     if @tran
       penerima = Outlet.find(@tran.receiver_id)
-      @tran.create_activity action: 'validate_accept', owner: current_user, recipient: penerima
+      # @tran.create_activity action: 'validate_accept', owner: current_user, recipient: penerima
       @dtrans = @tran.dtrans
       @dtrans.each do |dtran|
         @stok = Stock.where(outlet_id: @tran.receiver_id, obat_id: dtran.stock.obat_id).first
@@ -309,6 +309,8 @@ class TransaksisController < ApplicationController
         @stok.update_attributes(:stok_qty => stok, :updated_at => Time.now.strftime("%Y-%m-%d %H:%M:%S"))
       end
     end
+    notify(current_user.user_id, 'accepted', @tran.receiver_id, @tran.transaksi_id)
+    @stocks = Stock.paginate(:page => params[:page], :per_page => 10).where(outlet_id: current_user.outlet.outlet_id).order('updated_at DESC')
     flash[:success] = "Stok berhasil ditambahkan"
     redirect_to stocks_url
   end
@@ -325,9 +327,6 @@ class TransaksisController < ApplicationController
     @tgl_bln = params[:obat_in][7..8]
     @tgl_yrs = params[:obat_in][9..12]
 
-    # respond_to do |format|
-    #   format.js {render 'alert'}
-    # end
     @tran = Transaksi.where(sender_id: @sid, receiver_id: @rid).first
     @dtrans = @tran.dtrans
 
@@ -517,17 +516,11 @@ class TransaksisController < ApplicationController
     end
 
     def transaksi_params
-      params.require(:transaksi).permit(:trans_status, :sender_id, :receiver_id, :sender_name, :receiver_name, :outlet_name, :dtd_rsn, :dtt_rsn)
+      params.require(:transaksi).permit(:trans_status, :sender_id, :receiver_id, :sender_name, :receiver_name, :outlet_name, :dtd_rsn, :dtt_rsn, :bulan)
     end
 
-    def set_activities
-      if current_user.admin?
-        @activities = PublicActivity::Activity.all
-      elsif current_user.pengadaan?
-        @activities = PublicActivity::Activity.where(owner: current_user.user_id)
-      elsif current_user.gudang? || current_user.admin_gudang? || current_user.manager?
-        @activities = PublicActivity::Activity.where(recipient_id: current_user.outlet_id)
-      end
+    def notify(owner_id, key_message, recipient_id, transaksi_id)
+      Notification.create(owner_id: owner_id, key_message: key_message, recipient_id: recipient_id, transaksi_id: transaksi_id)
     end
     
 end
