@@ -327,7 +327,7 @@ class TransaksisController < ApplicationController
     @tgl_bln = params[:obat_in][7..8]
     @tgl_yrs = params[:obat_in][9..12]
 
-    @tran = Transaksi.where(sender_id: @sid, receiver_id: @rid).first
+    @tran = Transaksi.where("sender_id = #{@sid}").where("receiver_id = #{@rid}").where("DATE(asked_at) = '#{@tgl_yrs}-#{@tgl_bln}-#{@tgl_day}'").first
     @dtrans = @tran.dtrans
 
     @dtrans.each do |dtran|

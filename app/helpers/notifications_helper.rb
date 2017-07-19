@@ -1,4 +1,6 @@
 module NotificationsHelper
+	
+	# create notification message content
 	def notify(notification)
 		owner = User.find_by(user_id: notification.owner_id)
 		recipient = Outlet.find_by(outlet_id: notification.recipient_id)
@@ -17,6 +19,7 @@ module NotificationsHelper
 		return complete_message.html_safe
 	end
 
+	# generate link for notification lists
 	def make_link(notification)
 		complete_message = notify(notification)
 		transaksi = Transaksi.find_by(transaksi_id: notification.transaksi_id)
@@ -55,6 +58,7 @@ module NotificationsHelper
 		end
 	end
 
+	# ringing the bell if there is a notification
 	def ntf
 		if current_user.admin?
   		ceknotif = Notification.all.where(readStat_admin: nil).count()
@@ -70,6 +74,7 @@ module NotificationsHelper
 		end
 	end
 
+	# generate notification counter
 	def counterNotif
 		if current_user.admin?
   		ceknotif = Notification.all.where(readStat_admin: nil).count()

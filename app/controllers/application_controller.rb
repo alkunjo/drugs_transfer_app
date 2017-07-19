@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     elsif current_user.pengadaan?
       return ask_transaksis_path
     elsif current_user.gudang?
-      return drop_transaksis
+      return drop_transaksis_path
     elsif current_user.pimpinan?
       return dashboard_index_path
     end

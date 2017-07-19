@@ -57,6 +57,7 @@ gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'faker'
 gem 'chartkick'
+gem 'pry'
 
 # gem 'week_of_month'
 

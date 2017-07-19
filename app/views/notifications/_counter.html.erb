@@ -1,0 +1,7 @@
+<% if current_user.admin? %>
+  <%= Notification.all.where(readStat_admin: nil).count().inspect %>
+<% elsif current_user.pimpinan? %>
+  <%= Notification.where(recipient_id: current_user.outlet_id).where(readStat_manager: nil).count().inspect %>
+<% else %>
+  <%= Notification.where(recipient_id: current_user.outlet_id).where(readStat_receiver: nil).count().inspect %>
+<% end %>
