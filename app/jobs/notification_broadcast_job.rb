@@ -4,9 +4,9 @@ class NotificationBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(notification)
-    binding.pry
+    # binding.pry
     logger.debug "broadcasting notifikasi"
-    ActionCable.server.broadcast 'notification_channel', notification: make_link(notification), recipients: [notification.recipient_id, 1], counter: render_counter(notification)
+    ActionCable.server.broadcast 'notification_channel', notifications: make_link(notification), recipients: [notification.recipient_id, 1], counters: render_counter(notification)
   end
 
   private
@@ -83,26 +83,26 @@ class NotificationBroadcastJob < ApplicationJob
     pengadaan = User.joins(:role).where(outlet_id: notification.recipient_id).where("roles.role_name = 'PIC Pengadaan'").first.id
     gudang = User.joins(:role).where(outlet_id: notification.recipient_id).where("roles.role_name = 'PIC Gudang'").first.id
     pimpinan = User.joins(:role).where(outlet_id: notification.recipient_id).where("roles.role_name = 'Pimpinan Outlet'").first.id
-    link_admin = "<li class='notif'>" +
-      "<a href='/notifications/#{notification.id}/adminRead' style='#{style}'>"+
-        "#{sign}#{complete_message}#{span}"+
-      "</a>"+
-    "</li>"
-    link_pimpinan = "<li class='notif'>"+
-      "<a href='/notifications/#{notification.id}/pimpinanRead' style='#{style}'>"+
-        "#{sign}#{complete_message}#{span}"+
-      "</a>"+
-    "</li>"
-    link_gudang = "<li class='notif'>
-      <a href='/notifications/#{notification.id}/otherRead' style='#{style}'>
-        #{sign}#{complete_message}#{span}
-      </a>
-    </li>"
-    link_pengadaan = "<li class='notif'>
-      <a href='/notifications/#{notification.id}/otherRead' style='#{style}'>
-        #{sign}#{complete_message}#{span}
-      </a>
-    </li>"
+    link_admin = '<li class="notif">' +
+      '<a href="/notifications/#{notification.id}/adminRead" style="#{style}">'+
+        '#{sign}'+'#{complete_message}'+'#{span}'+
+      '</a>'+
+    '</li>'.html_safe
+    link_pimpinan = '<li class="notif">'+
+      '<a href="/notifications/#{notification.id}/pimpinanRead" style="#{style}">'+
+        '#{sign}'+'#{complete_message}'+'#{span}'+
+      '</a>'+
+    '</li>'.html_safe
+    link_gudang = '<li class="notif">'+
+      '<a href="/notifications/#{notification.id}/otherRead" style="#{style}">'+
+        '#{sign}'+'#{complete_message}'+'#{span}'+
+      '</a>'+
+    '</li>'.html_safe
+    link_pengadaan = '<li class="notif">'+
+      '<a href="/notifications/#{notification.id}/otherRead" style="#{style}">'+
+        '#{sign}'+'#{complete_message}'+'#{span}'+
+      '</a>'+
+    '</li>'.html_safe
     b = [[admin,link_admin],[pengadaan,link_pengadaan],[gudang,link_gudang],[pimpinan,link_pimpinan]]
     return b
   end
